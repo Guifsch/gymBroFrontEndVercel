@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Helvica';
+    src: url('./assets/fonts/Helvetica.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Helvica', sans-serif
+}
+
+/* Unico jeito que consegui acessar o style */
+body .css-6hp17o-MuiList-root-MuiMenu-list {
+    padding: 0
+}
+
+.pageMarginTopNavFix {
+    padding-top: 64px
+}
+
+/* Designing for scroll-bar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: gainsboro;
+    border-end-end-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: black;
+    border-end-end-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+html {
+
+    overflow-y: scroll;
+}
+
+#external-events {
+    padding: 10px;
+    width: 200px;
+    max-height: 700px;
+    overflow-y: overlay
+}
+
+.fc {
+    height: auto;
+    width: auto;
+}
+
+.fc-event {
+    margin: 10px 0;
+    padding: 5px;
+    background: #3788d8;
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+    word-break: break-all;
+
+}
+.fc-daygrid-event {
+    white-space: normal;
+}
+.fc-dayGridMonth-view {
+    overflow-x: overlay;
+    width: 920px;
+    height: 685px;
+}
+@media only screen and (max-width: 650px) {
+    .fc-dayGridMonth-view {
+        height: 500px;
+    }
+  }
+.MuiFormControl-root {
+    min-width: 120px;
+    margin-right: 20px;
+}
