@@ -136,7 +136,7 @@ function Profile() {
         if (formData.profilePicture.includes("firebasestorage")) {
           await removeImageFirebase(formData.profilePicture);
         }
-        
+
         const imageUrl = await handleFileUpload(image);
         updatedFormData = { ...updatedFormData, profilePicture: imageUrl };
       }
@@ -155,7 +155,7 @@ function Profile() {
       getUserProfile();
       dispatch(loadingFalse());
     }
-  };  
+  };
 
   const handleDeleteAccount = async (e) => {
     e.preventDefault();
@@ -200,18 +200,18 @@ function Profile() {
           boxShadow: "5px 5px 15px 1px",
           position: "relative",
           pt: 5,
+          overflow: "overlay",
           borderRadius: "5%",
           "@media (max-width:600px)": {
             width: "100%",
             height: "550px", // Ajuste para telas menores
           },
           "@media (max-height:700px)": {
-            maxHeight: '300px',
+            maxHeight: "300px",
           },
         }}
       >
-              <Loading top="0"
-                width="90%" />
+        <Loading top="0" width="100%" />
         <Typography
           variant="h4"
           textAlign="center"
