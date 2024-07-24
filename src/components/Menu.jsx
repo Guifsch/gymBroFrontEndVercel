@@ -85,8 +85,6 @@ export default function Header() {
   let history = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [profileMobileMenuOpen, setProfileMobileMenuOpen] =
-    React.useState(false);
 
   const handleSignOut = async () => {
     try {
@@ -128,29 +126,38 @@ export default function Header() {
               >
                 <MenuIcon />
               </IconButton>
-              <Link to="/home">
-                <CardMedia
-                  sx={{
-                    borderRadius: "50%",
-                    width: "50px",
-                    height: "50px",
-                    objectFit: "cover",
-                    mx: 2,
-                    filter: "invert(1)",
-                  }}
-                  component="img"
-                  image={gymBroLogoSvg}
-                  alt="Profile img"
-                />
-              </Link>
-              <Link to="/home">
-                <Typography variant="h6" noWrap component="div">
-                  Gym Bro
-                </Typography>
-              </Link>
+              {open ? (
+                false
+              ) : (
+                <Link to="/home">
+                  <CardMedia
+                    sx={{
+                      borderRadius: "50%",
+                      width: "50px",
+                      height: "50px",
+                      objectFit: "cover",
+                      mx: 2,
+                      filter: "invert(1)",
+                    }}
+                    component="img"
+                    image={gymBroLogoSvg}
+                    alt="Profile img"
+                  />
+                </Link>
+              )}
+
+              {open ? (
+                false
+              ) : (
+                <Link to="/home">
+                  <Typography variant="h6" noWrap component="div">
+                    Gym Bro
+                  </Typography>
+                </Link>
+              )}
             </Container>
 
-            <Link to="/profile">
+            <Link to="/profile" className="profileMobileMenuOpen">
               <IconButton sx={{ p: 0 }}>
                 <Avatar
                   alt="Remy Sharp"

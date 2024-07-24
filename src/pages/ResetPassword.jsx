@@ -1,19 +1,15 @@
 import {
-  Snackbar,
-  Alert,
   TextField,
   Button,
   Box,
   Container,
-  IconButton,
   CardMedia,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import backgroundImage from "../assets/login_background_images/gym_background.jpg";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import axiosConfig from "../utils/axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Loading from "../components/Loading";
@@ -25,39 +21,41 @@ import {
 } from "../redux/snackbar/snackBarSlice";
 
 function ResetPassword() {
-  const [email, setEmail] = useState("");
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const dispatch = useDispatch();
+  const [passwords, setPasswords] = useState({});
   const axiosInterceptor = axiosConfig();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
+  const id= searchParams.get('id');
   let history = useNavigate();
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    console.log(passwords)
+    setPasswords({ ...passwords, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+ 
+
+    if (passwords.password !== passwords.confirmPassword) {
+      dispatch(snackBarMessageError("As senhas não coincidem"));
+      return;
+    }
 
     try {
-      await axiosInterceptor.post("/api/forgot-password", { email });
-      setSnackbarSeverity("success");
-      setSnackbarMessage("E-mail de redefinição enviado com sucesso!");
-    } catch (error) {
-      setSnackbarSeverity("error");
-      setSnackbarMessage(
-        error.response.data.message || "Erro ao enviar o e-mail de redefinição."
+      dispatch(loadingTrue());
+      const newpassword = passwords.password;
+      const response = await axiosInterceptor.post(
+        `/api/reset/reset-password?token=${token}&id=${id}`,
+        {newPassword: newpassword}
       );
+      history("/");
+      dispatch(snackBarMessageSuccess(response.data.message));
+    } catch (e) {
+      dispatch(snackBarMessageError(e.response.data.error));
     } finally {
-      setSnackbarOpen(true);
+      dispatch(loadingFalse());
     }
-  };
-
-  const handleCloseSnackbar = () => {
-    setSnackbarOpen(false);
   };
 
   return (
@@ -92,29 +90,16 @@ function ResetPassword() {
           height: "600px",
           "@media (max-width:600px)": {
             width: "100%",
-            height: "550px", // Ajuste para telas menores
+            height: "550px",
           },
         }}
       >
         <Loading top="0" width="90%" />
-        <IconButton
-          onClick={() => history(-1)}
-          size="large"
-          sx={{
-            position: "absolute",
-            top: "5px",
-            left: "15px",
-          }}
-          aria-label="back"
-          color="primary"
-        >
-          <KeyboardBackspaceIcon fontSize="inherit" />
-        </IconButton>
         <Typography variant="h4" textAlign="center">
-          Esqueceu a senha?
+        Redefinir Senha
         </Typography>
-        <Typography variant="h8" textAlign="center" sx={{mx: 5, mt: 3}}>
-          Digite seu email e enviaremos instruções para resetar sua senha!
+        <Typography variant="h8" textAlign="center" sx={{ mx: 5, mt: 3 }}>
+        Digite sua nova senha
         </Typography>
         <Container
           sx={{
@@ -134,10 +119,37 @@ function ResetPassword() {
             <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
             <TextField
               onChange={handleChange}
-              type="email"
+              type="password"
               required
-              id="email"
-              label="Email"
+              id="password"
+              label="Nova senha"
+              variant="standard"
+              autoComplete="on"
+            />
+          </Box>
+        </Container>
+        <Container
+          sx={{
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "center",
+            mt: 3,
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "center",
+            }}
+          >
+            <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+            <TextField
+              onChange={handleChange}
+              type="password"
+              required
+              id="confirmPassword"
+              label="Confirme a nova senha"
               variant="standard"
               autoComplete="on"
             />

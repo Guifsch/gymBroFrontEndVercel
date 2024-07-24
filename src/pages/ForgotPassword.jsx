@@ -24,11 +24,11 @@ import {
 
 function ForgotPassword() {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({});
+  const [email, setEmail] = useState({});
   const axiosInterceptor = axiosConfig();
   let history = useNavigate();
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    setEmail({ ...email, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -36,9 +36,10 @@ function ForgotPassword() {
     dispatch(loadingTrue());
 
     try {
-      const response = await axiosInterceptor.post("/api/forgot-password", {
-        formData,
-      });
+      const response = await axiosInterceptor.post(
+        "/api/reset/forgot-password",
+        email
+      );
       dispatch(snackBarMessageSuccess(response.data.message));
     } catch (e) {
       dispatch(snackBarMessageError(e.response.data.error));
@@ -79,7 +80,7 @@ function ForgotPassword() {
           height: "600px",
           "@media (max-width:600px)": {
             width: "100%",
-            height: "550px", // Ajuste para telas menores
+            height: "550px",
           },
         }}
       >
@@ -101,7 +102,7 @@ function ForgotPassword() {
           Esqueceu a senha?
         </Typography>
         <Typography variant="h8" textAlign="center" sx={{ mx: 5, mt: 3 }}>
-          Digite seu email e enviaremos instruções para resetar sua senha!
+        Digite seu endereço de e-mail para receber um link de redefinição de senha!
         </Typography>
         <Container
           sx={{
