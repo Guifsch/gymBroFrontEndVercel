@@ -48,14 +48,15 @@ const style = {
     minWidth: 0,
   },
   "@media (max-height:700px)": {
-    maxHeight: '400px',
-    pb: 3
+    maxHeight: "400px",
+    pb: 3,
   },
-  
 };
 
 const Calendar = ({ sets }) => {
   const calendarRef = useRef(null);
+  const dispatch = useDispatch();
+  const axiosInterceptor = axiosConfig();
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [externalEvents, setExternalEvents] = useState([]);
@@ -68,8 +69,6 @@ const Calendar = ({ sets }) => {
   const [image, setImage] = useState(undefined);
   const [openModal, setOpenModal] = useState(false);
   const [openToolTip, setOpenToolTip] = useState(false);
-  const dispatch = useDispatch();
-  const axiosInterceptor = axiosConfig();
   const [selectedDate, setSelectedDate] = useState(null);
   const [openEventModal, setOpenEventModal] = useState(false);
 
@@ -277,18 +276,28 @@ const Calendar = ({ sets }) => {
           justifyContent: "space-between",
           alignItems: "center",
           paddingX: "16px",
-          "@media (max-width:650px)": {
+          "@media (max-width:700px)": {
             width: "100%",
             flexDirection: "column",
           },
         }}
       >
+        <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              "@media (max-width:700px)": {
+                flexDirection: "column",
+              },
+            }}
+        >
         <Box position="relative">
           <Button
             variant="contained"
             onClick={() => setOpenToolTip((prev) => !prev)}
             sx={{
-              "@media (max-width:650px)": {
+              "@media (max-width:700px)": {
                 my: 3,
               },
             }}
@@ -407,8 +416,19 @@ const Calendar = ({ sets }) => {
             </Paper>
           )}
         </Box>
+        <Typography sx={{ padding: "6px 16px", ml: 3,borderRadius: "4px", backgroundColor: '#1976d2', color: 'white',
+          "@media (max-width:700px)": {
+            mb: 3,
+            ml: 0
+          }, }}>
+            {" "}
+            Sets no calendário: {calendarEvents.length}
+          </Typography>
+          </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>
+      
           <Button
+            sx={{ marginLeft: "20px", marginY: 0 }}
             variant="contained"
             color="primary"
             onClick={handleSaveCalendar}
@@ -537,10 +557,10 @@ const Calendar = ({ sets }) => {
                   size="small"
                   sx={{
                     position: "absolute",
-                    top: '5px',
-                    width: '20px',
-                    height: '20px',
-                    right: '5px',
+                    top: "5px",
+                    width: "20px",
+                    height: "20px",
+                    right: "5px",
                     zIndex: 99999,
                     color: "red",
                     background: "white",
@@ -549,7 +569,11 @@ const Calendar = ({ sets }) => {
                 >
                   <CloseIcon fontSize="small" />
                 </IconButton>
-                <Typography variant="body1" className="fc-event-title"   sx={{ maxWidth: '95px'}}>
+                <Typography
+                  variant="body1"
+                  className="fc-event-title"
+                  sx={{ maxWidth: "95px" }}
+                >
                   {arg.event.extendedProps.name}
                 </Typography>
               </Box>
