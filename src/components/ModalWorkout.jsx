@@ -271,16 +271,6 @@ export default function ModalWorkout({
       dispatch(snackBarMessageError(e.response.data.error));
     } finally {
       setLoading(false);
-      setContent({
-        name: "",
-        rep: "",
-        serie: "",
-        weight: "",
-        exercisePicture: "",
-        comment: "",
-        category: "",
-      });
-      setSelectedOption(null);
       setImagePreview(null);
       getWorkoutRefValue();
       if (fileRef.current) {
