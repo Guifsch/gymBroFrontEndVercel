@@ -1,10 +1,9 @@
-
 import ModalWorkoutSet from "./ModalWorkoutSet";
 import {
   snackBarMessageSuccess,
   snackBarMessageError,
 } from "../redux/snackbar/snackBarSlice";
-import { Container, Box, Typography, Button} from "@mui/material";
+import { Container, Box, Typography, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import React, { useCallback, useState, useEffect } from "react";
 import axiosConfig from "../utils/axios";
@@ -26,12 +25,11 @@ export default function Workouts() {
         withCredentials: true,
       });
       setSets(response.data);
-
     } catch (e) {
       dispatch(snackBarMessageError(e.response.data.error));
     }
   }, []);
-  
+
   const deleteSet = async (e) => {
     dispatch(loadingTrue());
     try {
@@ -72,7 +70,6 @@ export default function Workouts() {
 
   return (
     <Box className="flex flex-col justify-initial items-center">
-  
       <Button variant="contained" onClick={handleOpenSerieModal}>
         <Typography variant="h7" textAlign="center">
           Enviar Set
@@ -83,11 +80,10 @@ export default function Workouts() {
           display: "flex",
           justifyContent: "center",
           paddingLeft: "18%",
-          width: '100%',
+          width: "100%",
           "@media (max-width:1000px)": {
             paddingLeft: 0,
           },
-          
         }}
       >
         <Box
@@ -96,12 +92,10 @@ export default function Workouts() {
             justifyContent: "start",
             flexWrap: "wrap",
             width: "100%",
-        
-              "@media (max-width:1000px)": {
-                flexDirection: "column",
-                alignItems: 'center'
-              },
-          
+            "@media (max-width:1000px)": {
+              flexDirection: "column",
+              alignItems: "center",
+            },
           }}
         >
           {sets.map((item, index) => (
@@ -114,7 +108,6 @@ export default function Workouts() {
                 alignItems: "center",
                 justifyContent: "start",
                 flexDirection: "column",
-
                 margin: "2%",
                 wordBreak: "break-word",
                 cursor: "pointer",
@@ -147,7 +140,7 @@ export default function Workouts() {
                   variant="h5"
                   autoComplete="on"
                   marginTop="10px"
-                  sx={{ fontWeight: "bold" }}
+                  sx={{ fontWeight: "bold", px: "15px" }}
                 >
                   {item.name}
                 </Typography>

@@ -71,7 +71,7 @@ html {
     color: white;
     border-radius: 3px;
     cursor: pointer;
-    word-break: break-all;
+    word-break: auto-phrase;
 
 }
 .fc-daygrid-event {
