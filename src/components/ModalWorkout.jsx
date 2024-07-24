@@ -66,6 +66,9 @@ const style = {
   "@media (max-width:600px)": {
     width: " 100%",
   },
+  "@media (max-height:700px)": {
+    maxHeight: '400px',
+  },
 };
 
 export default function ModalWorkout({

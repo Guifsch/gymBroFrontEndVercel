@@ -77,20 +77,24 @@ function Signup() {
           backgroundColor: "white",
           pt: 10,
           zIndex: 1,
-          margin: '25px',
+          margin: "25px",
           position: "relative",
           boxShadow: "5px 5px 15px 1px",
           borderRadius: "5%",
-          width: '450px',
+          width: "450px",
           overflow: "overlay",
-          height: '600px',
-          '@media (max-width:600px)': {
-            width: '100%',
-            height: '550px' // Ajuste para telas menores
-      },
+          height: "600px",
+          "@media (max-width:600px)": {
+            width: "100%",
+            height: "550px", // Ajuste para telas menores
+          },
+          "@media (max-height:700px)": {
+            maxHeight: "400px",
+            pb: 3,
+          },
         }}
       >
-         <Loading top="0"/>
+        <Loading top="0" />
         <IconButton
           onClick={() => history(-1)}
           size="large"

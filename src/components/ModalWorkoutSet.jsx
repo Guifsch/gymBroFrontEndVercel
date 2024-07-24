@@ -41,6 +41,10 @@ const style = {
   "@media (max-width:600px)": {
     width: "100%",
   },
+  "@media (max-height:700px)": {
+    maxHeight: '400px',
+    pb: 3
+  },
 };
 
 // Função para determinar o estilo de um item na lista com base na sua seleção

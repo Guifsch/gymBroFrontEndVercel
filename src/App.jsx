@@ -7,7 +7,8 @@ import Workouts from "./pages/Workouts"
 import Menu from "./components/Menu";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivatedRouteRedirect from "./components/PrivatedRouteRedirect";
+import UnprivatedRouteRedirect from "./components/UnprivatedRouteRedirect";
 import SnackBar from "./components/SnackBar";
 import { useSelector } from "react-redux";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -29,12 +30,14 @@ function App() {
       {currentUser ? <Menu /> : false}
       <Routes>
         {/* Rotas não privadas */}
+        <Route element={<UnprivatedRouteRedirect />}>
         <Route path="/" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        </Route>
         {/* Rotas privadas */}
-        <Route element={<PrivateRoute />}>
+        <Route element={<PrivatedRouteRedirect />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/home" element={<Home />} />
           <Route path="/workouts" element={<Workouts />} />

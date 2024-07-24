@@ -47,6 +47,11 @@ const style = {
     width: "100%",
     minWidth: 0,
   },
+  "@media (max-height:700px)": {
+    maxHeight: '400px',
+    pb: 3
+  },
+  
 };
 
 const Calendar = ({ sets }) => {

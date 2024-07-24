@@ -183,7 +183,7 @@ function Profile() {
   };
 
   return (
-    <Box className="flex justify-center items-center h-screen">
+    <Box className="flex justify-center items-center h-screen pageMarginTopNavFix">
       <Box
         display="flex"
         alignItems="center"
@@ -196,6 +196,7 @@ function Profile() {
           width: "450px",
           backgroundColor: "white",
           zIndex: 1,
+          overflow: "overlay",
           boxShadow: "5px 5px 15px 1px",
           position: "relative",
           pt: 5,
@@ -203,6 +204,9 @@ function Profile() {
           "@media (max-width:600px)": {
             width: "100%",
             height: "550px", // Ajuste para telas menores
+          },
+          "@media (max-height:700px)": {
+            maxHeight: '300px',
           },
         }}
       >

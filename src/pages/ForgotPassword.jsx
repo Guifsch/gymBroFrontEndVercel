@@ -83,6 +83,9 @@ function ForgotPassword() {
             width: "100%",
             height: "550px",
           },
+          "@media (max-height:700px)": {
+            maxHeight: '400px',
+          },
         }}
       >
         <Loading top="0"/>

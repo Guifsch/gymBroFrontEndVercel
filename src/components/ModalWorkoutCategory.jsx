@@ -34,6 +34,9 @@ const style = {
     width: "100%",
     maxHeight: "520px",
   },
+  "@media (max-height:700px)": {
+    maxHeight: '400px',
+  },
 };
 
 export default function ModalWorkoutCategory({
