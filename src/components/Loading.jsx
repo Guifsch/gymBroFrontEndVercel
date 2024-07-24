@@ -15,7 +15,7 @@ function Loading({top, width}) {
         top: {top},
       }}
     >
-      {loading  ? <LinearProgress sx={{}} /> : false}
+      {loading  ? <LinearProgress/> : false}
     </Box>
   );
 }

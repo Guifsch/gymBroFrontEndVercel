@@ -78,12 +78,12 @@ function Signin() {
         component="form"
         sx={{
           backgroundColor: "white",
-          pt: 1,
           zIndex: 1,
           margin: "25px",
           boxShadow: "5px 5px 15px 1px",
           borderRadius: "5%",
-          position: 'relative',
+          position: "relative",
+          overflow: "overlay",
           width: "450px",
           height: "650px",
           "@media (max-width:600px)": {
@@ -93,8 +93,7 @@ function Signin() {
           },
         }}
       >
-                <Loading top="0"
-                width="90%" />
+        <Loading top="0" />
         <CardMedia
           sx={{
             my: 3,
@@ -184,7 +183,7 @@ function Signin() {
           }}
         >
           <Link to="/forgot-password" className="text-blue-500 ml-1">
-          Esqueceu sua senha?
+            Esqueceu sua senha?
           </Link>
         </Box>
 

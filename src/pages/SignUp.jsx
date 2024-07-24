@@ -82,6 +82,7 @@ function Signup() {
           boxShadow: "5px 5px 15px 1px",
           borderRadius: "5%",
           width: '450px',
+          overflow: "overlay",
           height: '600px',
           '@media (max-width:600px)': {
             width: '100%',
@@ -89,8 +90,7 @@ function Signup() {
       },
         }}
       >
-         <Loading top="0"
-                width="90%" />
+         <Loading top="0"/>
         <IconButton
           onClick={() => history(-1)}
           size="large"
