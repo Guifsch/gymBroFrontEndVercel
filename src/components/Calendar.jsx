@@ -283,150 +283,157 @@ const Calendar = ({ sets }) => {
         }}
       >
         <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              "@media (max-width:700px)": {
-                flexDirection: "column",
-              },
-            }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            "@media (max-width:700px)": {
+              flexDirection: "column",
+            },
+          }}
         >
-        <Box position="relative">
-          <Button
-            variant="contained"
-            onClick={() => setOpenToolTip((prev) => !prev)}
+          <Box position="relative">
+            <Button
+              variant="contained"
+              onClick={() => setOpenToolTip((prev) => !prev)}
+              sx={{
+                "@media (max-width:700px)": {
+                  my: 3,
+                },
+              }}
+            >
+              Instruções
+            </Button>
+            {openToolTip && (
+              <Paper
+                elevation={3}
+                sx={{
+                  position: "absolute",
+                  top: "100%",
+                  left: "120%",
+                  transform: "translateX(-50%)",
+                  mt: 1,
+                  mb: 5,
+                  p: 2,
+                  width: 300,
+                  backgroundColor: "#000000e3;",
+                  color: "#fff",
+                  boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+                  zIndex: 10,
+                  "@media (max-width:650px)": {
+                    top: "75%",
+                    left: "50%",
+                  },
+                }}
+                onClick={handleTooltipClose}
+              >
+                <IconButton
+                  onClick={handleTooltipClose}
+                  size="small"
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    color: "#fff",
+                  }}
+                >
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+                <Typography variant="h6" gutterBottom>
+                  <strong>Tutorial: Como Organizar Seus Treinos</strong>
+                </Typography>
+                <ol>
+                  <li>
+                    <strong>Adicionar Treino:</strong>
+                    <ul>
+                      <li>Vá para a seção "Adicionar Treino".</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Criar Categorias:</strong>
+                    <ul>
+                      <li>
+                        Em seguida, acesse a opção "Criar Categorias" para criar
+                        categorias relacionadas às áreas dos músculos que serão
+                        treinadas.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Adicionar Treinos:</strong>
+                    <ul>
+                      <li>
+                        Depois de criar suas categorias, adicione seus treinos
+                        correspondentes a cada categoria, adicionando peso,
+                        repetições, séries e até mesmo comentários, caso ache
+                        necessário.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Registrar Treinos:</strong>
+                    <ul>
+                      <li>
+                        Vá para a aba "Registrar Treinos" para montar seus sets
+                        de treino. Aqui, você pode agrupar os exercícios para
+                        que eles fiquem mais organizados.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Finalizar e Retornar ao Início:</strong>
+                    <ul>
+                      <li>
+                        Após terminar de montar seus sets, retorne à página
+                        inicial.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Arrastar e Soltar Sets:</strong>
+                    <ul>
+                      <li>
+                        Por fim, arraste seus sets do canto esquerdo para as
+                        respectivas datas no calendário, organizando assim sua
+                        rotina de treinos. Também é possível clicar nas datas do
+                        calendário para adicionar treinos diretamente. Se você
+                        estiver usando um dispositivo móvel, a única opção
+                        disponível será clicar nas datas do calendário.
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Salvar:</strong>
+                    <ul>
+                      <li>
+                        Não se esqueça de salvar todas as suas alterações para
+                        garantir que seus treinos estejam registrados
+                        corretamente.
+                      </li>
+                    </ul>
+                  </li>
+                </ol>
+              </Paper>
+            )}
+          </Box>
+          <Typography
             sx={{
+              padding: "6px 16px",
+              ml: 3,
+              borderRadius: "4px",
+              backgroundColor: "#1976d2",
+              color: "white",
               "@media (max-width:700px)": {
-                my: 3,
+                mb: 3,
+                ml: 0,
               },
             }}
           >
-            Instruções
-          </Button>
-          {openToolTip && (
-            <Paper
-              elevation={3}
-              sx={{
-                position: "absolute",
-                top: "100%",
-                left: "120%",
-                transform: "translateX(-50%)",
-                mt: 1,
-                mb: 5,
-                p: 2,
-                width: 300,
-                backgroundColor: "#000000e3;",
-                color: "#fff",
-                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-                zIndex: 10,
-                "@media (max-width:650px)": {
-                  top: "75%",
-                  left: "50%",
-                },
-              }}
-              onClick={handleTooltipClose}
-            >
-              <IconButton
-                onClick={handleTooltipClose}
-                size="small"
-                sx={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0,
-                  color: "#fff",
-                }}
-              >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-              <Typography variant="h6" gutterBottom>
-                <strong>Tutorial: Como Organizar Seus Treinos</strong>
-              </Typography>
-              <ol>
-                <li>
-                  <strong>Adicionar Treino:</strong>
-                  <ul>
-                    <li>Vá para a seção "Adicionar Treino".</li>
-                  </ul>
-                </li>
-                <li>
-                  <strong>Criar Categorias:</strong>
-                  <ul>
-                    <li>
-                      Em seguida, acesse a opção "Criar Categorias" para criar
-                      categorias relacionadas às áreas dos músculos que serão
-                      treinadas.
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <strong>Adicionar Treinos:</strong>
-                  <ul>
-                    <li>
-                      Depois de criar suas categorias, adicione seus treinos
-                      correspondentes a cada categoria, adicionando peso,
-                      repetições, séries e até mesmo comentários, caso ache
-                      necessário.
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <strong>Registrar Treinos:</strong>
-                  <ul>
-                    <li>
-                      Vá para a aba "Registrar Treinos" para montar seus sets de
-                      treino. Aqui, você pode agrupar os exercícios para que
-                      eles fiquem mais organizados.
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <strong>Finalizar e Retornar ao Início:</strong>
-                  <ul>
-                    <li>
-                      Após terminar de montar seus sets, retorne à página
-                      inicial.
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <strong>Arrastar e Soltar Sets:</strong>
-                  <ul>
-                    <li>
-                      Por fim, arraste seus sets do canto esquerdo para as
-                      respectivas datas no calendário, organizando assim sua
-                      rotina de treinos. Também é possível clicar nas datas do
-                      calendário para adicionar treinos diretamente. Se você
-                      estiver usando um dispositivo móvel, a única opção
-                      disponível será clicar nas datas do calendário.
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <strong>Salvar:</strong>
-                  <ul>
-                    <li>
-                      Não se esqueça de salvar todas as suas alterações para
-                      garantir que seus treinos estejam registrados
-                      corretamente.
-                    </li>
-                  </ul>
-                </li>
-              </ol>
-            </Paper>
-          )}
-        </Box>
-        <Typography sx={{ padding: "6px 16px", ml: 3,borderRadius: "4px", backgroundColor: '#1976d2', color: 'white',
-          "@media (max-width:700px)": {
-            mb: 3,
-            ml: 0
-          }, }}>
             {" "}
             Sets no calendário: {calendarEvents.length}
           </Typography>
-          </Box>
+        </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>
-      
           <Button
             sx={{ marginLeft: "20px", marginY: 0 }}
             variant="contained"
@@ -742,9 +749,13 @@ const Calendar = ({ sets }) => {
                               <TextField
                                 value={item.comment}
                                 label="Comentário"
+                                maxRows={4}
+                                type="comment"
+                                multiline
                                 autoComplete="on"
                                 sx={{
                                   marginY: "3%",
+                                  marginRight: "5px",
                                   "& > label": { fontWeight: "bold" },
                                 }}
                               />
@@ -816,7 +827,6 @@ const Calendar = ({ sets }) => {
                     <TextField
                       id="comment"
                       label="Comentário"
-                      multiline
                       type="comment"
                       value={selectedEvent.extendedProps.comment}
                       maxRows={4}
@@ -915,11 +925,15 @@ const Calendar = ({ sets }) => {
 
                             {item.comment ? (
                               <TextField
-                                value={item.comment}
+                                multiline
                                 label="Comentário"
+                                value={item.comment}
+                                maxRows={4}
+                                type="comment"
                                 autoComplete="on"
                                 sx={{
                                   marginY: "3%",
+                                  marginRight: "5px",
                                   "& > label": { fontWeight: "bold" },
                                 }}
                               />
@@ -969,7 +983,8 @@ const Calendar = ({ sets }) => {
                 wordBreak: "break-all",
               }}
             >
-              <Typography variant="body1">{event.name}</Typography>
+              
+              <Typography sx={{display: 'flex', justifyContent: 'center'}} variant="h4">{event.name}</Typography>
               <Typography variant="body1">{event.comment}</Typography>
             </Box>
           ))}
