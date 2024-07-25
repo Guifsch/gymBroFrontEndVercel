@@ -184,6 +184,7 @@ function Profile() {
 
   return (
     <Box className="flex justify-center items-center h-screen pageMarginTopNavFix">
+      <Loading top="64px" width="100%" />
       <Box
         display="flex"
         alignItems="center"
@@ -200,7 +201,6 @@ function Profile() {
           boxShadow: "5px 5px 15px 1px",
           position: "relative",
           pt: 5,
-          overflow: "overlay",
           borderRadius: "5%",
           "@media (max-width:600px)": {
             width: "100%",
@@ -211,7 +211,6 @@ function Profile() {
           },
         }}
       >
-        <Loading top="0" width="100%" />
         <Typography
           variant="h4"
           textAlign="center"

@@ -168,7 +168,9 @@ const Calendar = ({ sets }) => {
   useEffect(() => {
     const calendarApi = calendarRef.current?.getApi();
     if (calendarApi) {
-      calendarApi.gotoDate(new Date(currentYear, currentMonth));
+      setTimeout(() => {
+        calendarApi.gotoDate(new Date(currentYear, currentMonth));
+      }, 0);
     }
   }, [currentMonth, currentYear]);
 
@@ -268,6 +270,10 @@ const Calendar = ({ sets }) => {
     setOpenToolTip(false);
   };
 
+  const deleteCalendar = () => {
+    setCalendarEvents([]);
+  };
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", p: 2, width: "100%" }}>
       <Box
@@ -276,7 +282,7 @@ const Calendar = ({ sets }) => {
           justifyContent: "space-between",
           alignItems: "center",
           paddingX: "16px",
-          "@media (max-width:700px)": {
+          "@media (max-width:1000px)": {
             width: "100%",
             flexDirection: "column",
           },
@@ -287,7 +293,7 @@ const Calendar = ({ sets }) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            "@media (max-width:700px)": {
+            "@media (max-width:1000px)": {
               flexDirection: "column",
             },
           }}
@@ -297,7 +303,7 @@ const Calendar = ({ sets }) => {
               variant="contained"
               onClick={() => setOpenToolTip((prev) => !prev)}
               sx={{
-                "@media (max-width:700px)": {
+                "@media (max-width:1000px)": {
                   my: 3,
                 },
               }}
@@ -416,20 +422,34 @@ const Calendar = ({ sets }) => {
               </Paper>
             )}
           </Box>
+          <Button
+            sx={{
+              ml: 3,
+              "@media (max-width:1000px)": {
+                ml: 0,
+                mb: 3,
+              },
+            }}
+            variant="contained"
+            onClick={deleteCalendar}
+          >
+            Deletar todo calendário
+          </Button>
           <Typography
             sx={{
+              boxShadow:
+                "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)",
               padding: "6px 16px",
               ml: 3,
               borderRadius: "4px",
               backgroundColor: "#1976d2",
               color: "white",
-              "@media (max-width:700px)": {
+              "@media (max-width:1000px)": {
                 mb: 3,
                 ml: 0,
               },
             }}
           >
-            {" "}
             Sets no calendário: {calendarEvents.length}
           </Typography>
         </Box>
@@ -983,8 +1003,12 @@ const Calendar = ({ sets }) => {
                 wordBreak: "break-all",
               }}
             >
-              
-              <Typography sx={{display: 'flex', justifyContent: 'center'}} variant="h4">{event.name}</Typography>
+              <Typography
+                sx={{ display: "flex", justifyContent: "center" }}
+                variant="h4"
+              >
+                {event.name}
+              </Typography>
               <Typography variant="body1">{event.comment}</Typography>
             </Box>
           ))}
