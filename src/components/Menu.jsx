@@ -156,13 +156,9 @@ export default function Header() {
                 </Link>
               )}
             </Container>
-              <Box sx={{mr: 3}}>
-                <Typography>
-                  {currentUser.username}
-                </Typography>
-              </Box>
-
-
+            <Box sx={{ mr: 3 }}>
+              <Typography>{currentUser.username}</Typography>
+            </Box>
 
             <Link to="/profile" className="profileMobileMenuOpen">
               <IconButton sx={{ p: 0 }}>

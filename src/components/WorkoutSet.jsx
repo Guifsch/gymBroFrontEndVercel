@@ -23,6 +23,7 @@ export default function Workouts() {
   });
   const [sets, setSets] = useState([]);
   const getSets = useCallback(async () => {
+    dispatch(loadingTrue());
     try {
       const response = await axiosInterceptor.get(`/api/set/sets`, {
         withCredentials: true,
@@ -30,6 +31,8 @@ export default function Workouts() {
       setSets(response.data);
     } catch (e) {
       dispatch(snackBarMessageError(e.response.data.error));
+    } finally {
+      dispatch(loadingFalse());
     }
   }, []);
 
@@ -116,7 +119,7 @@ export default function Workouts() {
                 display: "flex",
                 borderRadius: "3px",
                 border: "solid 2px",
-                padding: '10px',
+                padding: "10px",
                 width: "26%",
                 alignItems: "center",
                 justifyContent: "start",

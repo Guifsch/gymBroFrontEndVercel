@@ -33,6 +33,7 @@ const style = {
   overflow: "overlay",
   "@media (max-width:600px)": {
     width: "100%",
+    height: "auto",
     maxHeight: "520px",
   },
   "@media (max-height:700px)": {
@@ -212,18 +213,21 @@ export default function ModalWorkoutCategory({
               opacity: 1,
             },
             display: "flex",
+            height: "100%",
             flexDirection: "column",
+            justifyContent: "space-between",
             alignItems: "center",
+            padding: "40px 40px 0 40px",
           }}
         >
-          <Container
+          <Box
             sx={{
               display: "flex",
               flexDirection: "column",
-              paddingTop: "50px",
+              width: "100%",
             }}
           >
-            <Container
+            <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -234,9 +238,9 @@ export default function ModalWorkoutCategory({
                 color="#491290"
                 text="Adicionar categoria"
               />
-            </Container>
+            </Box>
 
-            <Container
+            <Box
               sx={{
                 display: "flex",
                 flexWrap: "wrap",
@@ -253,9 +257,9 @@ export default function ModalWorkoutCategory({
                 sx={{
                   display: "flex",
                   width: "50%",
+                  padding: "15px",
                   flexDirection: "column",
                   alignItems: "initial",
-                  padding: "15px",
                   justifyContent: "flex-start",
                   borderTop: "1px solid #00000061",
                   borderLeft: "1px solid #00000061",
@@ -284,14 +288,16 @@ export default function ModalWorkoutCategory({
                     autoComplete="on"
                     sx={{
                       width: "80%",
-                      mb: "15px",
+                      my: "10px",
                       "& input": {
-                        pt: "25px",
+                        height: "50px",
+                        padding: 0,
                       },
 
                       "@media (max-width:600px)": {
                         marginRight: "0",
                         marginLeft: "16px",
+                        width: "75%",
                       },
                     }}
                     value={inputValues[index] || ""}
@@ -302,17 +308,17 @@ export default function ModalWorkoutCategory({
                   <Button
                     sx={{
                       position: "relative",
-                      bottom: "55px",
+                      bottom: "50px",
                       minWidth: "auto",
                       backgroundColor: "#bb0000",
                       color: "white",
                       borderRadius: "50%",
-                      left: "190px",
+                      left: "200px",
                       width: "25px",
                       height: "25px",
+                      "&:hover": { backgroundColor: "rgb(4 4 4 / 96%)" },
                       "@media (max-width:600px)": {
-                        left: "130px",
-                        width: "20px",
+                        left: "140px",
                       },
                     }}
                     onClick={categoryRemove}
@@ -329,7 +335,7 @@ export default function ModalWorkoutCategory({
                   width: "50%",
                   padding: "15px",
                   flexDirection: "column",
-                  alignItems: "center",
+                  alignItems: "normal",
                   justifyContent: "flex-start",
                   borderTop: "1px solid #00000061",
                   borderRight: "1px solid #00000061 ",
@@ -346,14 +352,15 @@ export default function ModalWorkoutCategory({
                 }}
               >
                 {workoutsCategorysArray.map((item, index) => (
-                  <Container
+                  <Box
                     key={index}
                     sx={{
                       display: "flex",
-                      py: "10px",
-                      mb: "15px",
+                      p: "10px 15px 10px 15px",
+                      my: "10px",
                       borderRadius: "3px",
                       border: "solid 2px",
+                      height: "50px",
                       alignItems: "center",
                       justifyContent: "space-between",
                     }}
@@ -376,11 +383,11 @@ export default function ModalWorkoutCategory({
                       text="Deletar"
                       fontSize=" 0.7rem"
                     />
-                  </Container>
+                  </Box>
                 ))}
               </Box>
-            </Container>
-          </Container>
+            </Box>
+          </Box>
 
           {workoutsCategorysArray.length > 0 ? (
             <CustomaizedButton

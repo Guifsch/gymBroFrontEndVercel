@@ -8,13 +8,14 @@ import {
 } from "../redux/snackbar/snackBarSlice";
 import OAuth from "../components/OAuth";
 import axiosConfig from "../utils/axios";
-import { Button, Box, TextField, CardMedia, Typography } from "@mui/material";
+import { Box, TextField, CardMedia, Typography } from "@mui/material";
 
+import CustomaizedButton from "../components/Button";
 import Loading from "../components/Loading";
 import { useDispatch } from "react-redux";
 import { loadingTrue, loadingFalse } from "../redux/loading/loadingSlice";
 
-import EmailIcon from '@mui/icons-material/Email';
+import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import backgroundImage from "../assets/login_background_images/background-circle.png";
 function Signin() {
@@ -121,8 +122,14 @@ function Signin() {
             id="email"
             label="Email"
             variant="filled"
+            required
             autoComplete="on"
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+              "& .MuiFormLabel-asterisk": {
+                display: "none",
+              },
+            }}
           />
         </Box>
 
@@ -142,25 +149,27 @@ function Signin() {
             onChange={handleChange}
             type="password"
             id="password"
+            required
             label="Password"
             variant="filled"
             autoComplete="off"
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+              "& .MuiFormLabel-asterisk": {
+                display: "none",
+              },
+            }}
           />
         </Box>
 
-        <Button
-          sx={{
-            mt: 5,
-            width: "80%",
-            height: "50px",
-            backgroundColor: "#491290",
-          }}
-          variant="contained"
+        <CustomaizedButton
+          color="#491290"
+          text="Entrar"
+          width="80%"
+          height="50px"
+          margin="30px 0 0 0"
           type="submit"
-        >
-          Entrar
-        </Button>
+        />
 
         <Box
           sx={{

@@ -20,16 +20,17 @@ function SnackBar() {
   }, [open, dispatch]);
 
   const handleCloseSnack = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     dispatch(snackBarClose());
   };
 
   // Verifica se message é um objeto e extrai a mensagem
-  const displayMessage = typeof message === 'object'
-    ? message.message || 'Ocorreu um erro'
-    : message;
+  const displayMessage =
+    typeof message === "object"
+      ? message.message || "Ocorreu um erro"
+      : message;
 
   return (
     <Snackbar

@@ -1,7 +1,18 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-function Loading({ color, text, onClick, width, height, margin, padding, fontSize, disabled }) {
+function Loading({
+  color,
+  text,
+  onClick,
+  width,
+  height,
+  margin,
+  padding,
+  fontSize,
+  disabled,
+  type,
+}) {
   return (
     <Button
       sx={{
@@ -22,6 +33,7 @@ function Loading({ color, text, onClick, width, height, margin, padding, fontSiz
       }}
       variant="contained"
       onClick={onClick}
+      type={type}
     >
       {text}
     </Button>

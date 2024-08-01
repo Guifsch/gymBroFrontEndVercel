@@ -41,10 +41,9 @@ const MenuProps = {
   PaperProps: {
     sx: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 247.31
+      width: 247.31,
     },
   },
-
 };
 
 const style = {
@@ -55,7 +54,8 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   maxWidth: 1000,
-  maxHeight: 650,
+  maxHeight: 550,
+  height: "100%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   overflowY: "overlay",
@@ -328,7 +328,10 @@ export default function ModalWorkout({
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       open={open}
-      onClose={() => { handleClose(); setImagePreview(undefined) }}
+      onClose={() => {
+        handleClose();
+        setImagePreview(undefined);
+      }}
       closeAfterTransition
       slots={{ backdrop: Backdrop }}
       slotProps={{
@@ -340,7 +343,10 @@ export default function ModalWorkout({
     >
       <Box sx={style}>
         <IconButton
-         onClick={() => { handleClose(); setImagePreview(undefined) }}
+          onClick={() => {
+            handleClose();
+            setImagePreview(undefined);
+          }}
           size="large"
           sx={{
             position: "absolute",
@@ -395,7 +401,9 @@ export default function ModalWorkout({
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              p: 5,
+              justifyContent: "space-between",
+              height: "100%",
+              padding: "40px 40px 0 40px",
             }}
           >
             <Box
@@ -560,7 +568,6 @@ export default function ModalWorkout({
                   onClick={() => fileRef.current.click()}
                   color="#491290"
                   text=" Escolher arquivo"
-               
                 />
 
                 {imagePreview || content.exercisePicture ? (
@@ -568,7 +575,7 @@ export default function ModalWorkout({
                     src={imagePreview || content.exercisePicture}
                     alt="Imagem do treino"
                     width="300px"
-                    height="300px"            
+                    height="300px"
                     marginTop="30px"
                   />
                 ) : (
@@ -586,23 +593,25 @@ export default function ModalWorkout({
                 )}
               </Box>
             </Box>
-            {allValuesAreEmpty ? (
-              <CustomaizedButton
-                onClick={submitWorkout}
-                color="#3a9906"
-                text="Salvar"
-                width="150px"
-                margin="50px 0 0 0"
-              />
-            ) : (
-              <CustomaizedButton
-                onClick={submitWorkoutUpdate}
-                color="#3a9906"
-                text=" Atualizar"
-                width="150px"
-                margin="50px 0 0 0"
-              />
-            )}
+            <Box>
+              {allValuesAreEmpty ? (
+                <CustomaizedButton
+                  onClick={submitWorkout}
+                  color="#3a9906"
+                  text="Salvar"
+                  width="150px"
+                  margin="40px 0 40px 0"
+                />
+              ) : (
+                <CustomaizedButton
+                  onClick={submitWorkoutUpdate}
+                  color="#3a9906"
+                  text=" Atualizar"
+                  width="150px"
+                  margin="40px 0 40px 0"
+                />
+              )}
+            </Box>
           </Box>
         )}
       </Box>

@@ -1,8 +1,11 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 //Outlet mostra os componentes filhos / Navigate diferente do useNavigate que redireciona, é na verdade um componente que também redireciona
 import { Outlet, Navigate } from "react-router-dom";
-import { snackBarMessageError, snackBarMessageSuccess } from "../redux/snackbar/snackBarSlice";
+import {
+  snackBarMessageError,
+  snackBarMessageSuccess,
+} from "../redux/snackbar/snackBarSlice";
 import { useDispatch } from "react-redux";
 
 function PraviteRoute() {
@@ -14,9 +17,7 @@ function PraviteRoute() {
     if (snackBarMessageLogout) {
       //Para surgir a mensagem 'desconectado' ao invés de 'você não está autentificado' ao dar logout
       dispatch(snackBarMessageSuccess("Desconectado com sucesso!"));
-    }
-    else if (!currentUser) {
-    
+    } else if (!currentUser) {
       dispatch(snackBarMessageError("Você não está autentificado!"));
     }
   }, [currentUser]);

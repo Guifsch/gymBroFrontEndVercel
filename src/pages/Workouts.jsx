@@ -9,12 +9,7 @@ import WorkoutSet from "../components/WorkoutSet";
 import GenericImage from "../assets/generic-image.png";
 import ImageWithPlaceholder from "../utils/imagePlaceHolderUntilLoad";
 import ModalWorkoutCategory from "../components/ModalWorkoutCategory";
-import {
-  Tab,
-  IconButton,
-  Box,
-  Container,
-} from "@mui/material";
+import { Tab, IconButton, Box, Container } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import CustomaizedButton from "../components/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -59,6 +54,7 @@ export default function Workouts() {
   };
 
   const getWorkout = useCallback(async () => {
+    dispatch(loadingTrue());
     try {
       const response = await axiosInterceptor.get(`/api/workout/workouts`, {
         withCredentials: true,
@@ -66,6 +62,8 @@ export default function Workouts() {
       setWorkouts(response.data.workouts);
     } catch (e) {
       dispatch(snackBarMessageError(e.response.data.error));
+    } finally {
+      dispatch(loadingFalse());
     }
   }, []);
 
@@ -333,7 +331,7 @@ export default function Workouts() {
               display: "flex",
               justifyContent: "center",
               "@media (max-width:500px)": {
-                flexDirection: "column",  
+                flexDirection: "column",
               },
             }}
           >
@@ -344,7 +342,7 @@ export default function Workouts() {
                 mr: 5,
                 "@media (max-width:500px)": {
                   mb: 2,
-                  mr: 0
+                  mr: 0,
                 },
               }}
             >

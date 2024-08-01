@@ -4,65 +4,64 @@ import { app } from "../firebase";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
-import googleIcon from '../assets/icons/google-icon-png.png'
+import googleIcon from "../assets/icons/google-icon-png.png";
 import IconButton from "@mui/material/IconButton";
-import { CardMedia} from "@mui/material";
+import { CardMedia } from "@mui/material";
 import axiosConfig from "../utils/axios";
-import { snackBarMessageSuccess, snackBarMessageError } from "../redux/snackbar/snackBarSlice";
+import {
+  snackBarMessageSuccess,
+  snackBarMessageError,
+} from "../redux/snackbar/snackBarSlice";
 
 function OAuth() {
   const dispatch = useDispatch();
   let history = useNavigate();
   const axiosInterceptor = axiosConfig();
-const handleGoogleClick = async () => {
-  try {
-    // Cria uma nova instância do provedor de autenticação do Google
-    const provider = new GoogleAuthProvider();
-    // Obtém a instância de autenticação para o aplicativo Firebase
-    const auth = getAuth(app);
+  const handleGoogleClick = async () => {
+    try {
+      // Cria uma nova instância do provedor de autenticação do Google
+      const provider = new GoogleAuthProvider();
+      // Obtém a instância de autenticação para o aplicativo Firebase
+      const auth = getAuth(app);
 
-    // Usa o popup para realizar a autenticação com o Google
-    const result = await signInWithPopup(auth, provider);
-    // Extrai os dados do usuário do resultado da autenticação
-    const googleData = {
-      name: result.user.displayName,
-      email: result.user.email,
-      photo: result.user.photoURL,
-    };
- 
-    const response = await axiosInterceptor.post(
-      `/api/auth/google`, 
-      googleData, // Dados do usuário autenticado
-      { withCredentials: true } 
-    );
+      // Usa o popup para realizar a autenticação com o Google
+      const result = await signInWithPopup(auth, provider);
+      // Extrai os dados do usuário do resultado da autenticação
+      const googleData = {
+        name: result.user.displayName,
+        email: result.user.email,
+        photo: result.user.photoURL,
+      };
 
-    dispatch(signInSuccess(response.data));
-    dispatch(snackBarMessageSuccess("Conectado com sucesso!"));
+      const response = await axiosInterceptor.post(
+        `/api/auth/google`,
+        googleData, // Dados do usuário autenticado
+        { withCredentials: true }
+      );
 
-    history("/home");
-  } catch (e) {
-    dispatch(snackBarMessageError("Oops, algo deu errado!"));
-  }
-};
+      dispatch(signInSuccess(response.data));
+      dispatch(snackBarMessageSuccess("Conectado com sucesso!"));
+
+      history("/home");
+    } catch (e) {
+      dispatch(snackBarMessageError("Oops, algo deu errado!"));
+    }
+  };
 
   return (
-      <div>
-        <IconButton
-          onClick={handleGoogleClick}
-          aria-label="delete"
-          size="small"
-        >
-            <CardMedia
-        sx={{
-          width: "50px",
-          height: "50px",
-        }}
-        component="img"
-        image={googleIcon}
-        alt="Background-image"
-      />
-        </IconButton>
-      </div>
+    <div>
+      <IconButton onClick={handleGoogleClick} aria-label="delete" size="small">
+        <CardMedia
+          sx={{
+            width: "50px",
+            height: "50px",
+          }}
+          component="img"
+          image={googleIcon}
+          alt="Background-image"
+        />
+      </IconButton>
+    </div>
   );
 }
 

@@ -106,7 +106,6 @@ export default function ModalWorkoutSerie({
     setFormValues(modalContentUpdate);
     setTextColor(modalContentUpdate.textColor);
     setCardColor(modalContentUpdate.cardColor);
-    console.log(modalContentUpdate);
   }, [modalContentUpdate]);
 
   // Função para buscar os exercícios da API e agrupar por categoria

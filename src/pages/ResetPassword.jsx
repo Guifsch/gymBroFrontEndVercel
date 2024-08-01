@@ -1,16 +1,9 @@
-import {
-  TextField,
-  Button,
-  Box,
-  Container,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { TextField, Box, CardMedia, Typography } from "@mui/material";
 import React, { useState } from "react";
 import backgroundImage from "../assets/login_background_images/background-circle.png";
 import axiosConfig from "../utils/axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
-
+import CustomaizedButton from "../components/Button";
 import LockIcon from "@mui/icons-material/Lock";
 import Loading from "../components/Loading";
 import { useDispatch } from "react-redux";
@@ -29,7 +22,6 @@ function ResetPassword() {
   const id = searchParams.get("id");
   let history = useNavigate();
   const handleChange = (e) => {
-    console.log(passwords);
     setPasswords({ ...passwords, [e.target.id]: e.target.value });
   };
 
@@ -87,7 +79,7 @@ function ResetPassword() {
           margin: "25px",
           position: "relative",
           boxShadow: "5px 5px 15px 1px",
-          borderRadius: "5%",
+          borderRadius: "3px",
           width: "450px",
           overflow: "overlay",
           height: "600px",
@@ -127,8 +119,14 @@ function ResetPassword() {
             id="password"
             label="Nova senha"
             variant="filled"
+            required
             autoComplete="off"
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+              "& .MuiFormLabel-asterisk": {
+                display: "none",
+              },
+            }}
           />
         </Box>
 
@@ -150,23 +148,24 @@ function ResetPassword() {
             id="confirmPassword"
             label="Confirme a nova senha"
             variant="filled"
+            required
             autoComplete="off"
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+              "& .MuiFormLabel-asterisk": {
+                display: "none",
+              },
+            }}
           />
         </Box>
-
-        <Button
-          sx={{
-            mt: 5,
-            width: "80%",
-            height: "50px",
-            backgroundColor: "#491290",
-          }}
-          variant="contained"
+        <CustomaizedButton
+          color="#491290"
+          text="Enviar"
+          width="80%"
+          height="50px"
+          margin="30px 0 0 0"
           type="submit"
-        >
-          Enviar
-        </Button>
+        />
       </Box>
     </Box>
   );

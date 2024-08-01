@@ -41,10 +41,9 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  minWidth: "500px",
-  maxWidth: "1000px",
+  minWidth: "800px",
   maxHeight: "500px",
-  "@media (max-width:600px)": {
+  "@media (max-width:800px)": {
     width: "100%",
     minWidth: 0,
   },
@@ -127,6 +126,7 @@ const Calendar = ({ sets }) => {
   };
 
   const getCalendar = useCallback(async () => {
+    dispatch(loadingTrue());
     try {
       const response = await axiosInterceptor.get(`/api/calendar/calendar`, {
         withCredentials: true,
@@ -139,6 +139,8 @@ const Calendar = ({ sets }) => {
       setCalendarEvents(events);
     } catch (e) {
       dispatch(snackBarMessageError(e.response.data.error));
+    } finally {
+      dispatch(loadingFalse());
     }
   }, []);
 
@@ -341,7 +343,7 @@ const Calendar = ({ sets }) => {
                 mr: 3,
                 "@media (max-width:1000px)": {
                   my: 3,
-                  mr: 0
+                  mr: 0,
                 },
               }}
             >
@@ -626,7 +628,6 @@ const Calendar = ({ sets }) => {
                     arg.event.extendedProps.cardColor || "#3788d8",
                 }}
               >
-                {console.log(arg, "console.log(arg)")}
                 <IconButton
                   size="small"
                   sx={{

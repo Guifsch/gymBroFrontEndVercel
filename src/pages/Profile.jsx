@@ -44,6 +44,7 @@ function Profile() {
   const { currentUser } = useSelector((state) => state.user);
 
   const getUserProfile = useCallback(async () => {
+    dispatch(loadingTrue());
     try {
       const response = await axiosInterceptor.get(
         `/api/user/user/${currentUser._id}`,
@@ -52,6 +53,8 @@ function Profile() {
       setFormData(response.data);
     } catch (e) {
       dispatch(snackBarMessageError(e.response.data.error));
+    } finally {
+      dispatch(loadingFalse());
     }
   }, []);
 
@@ -206,7 +209,7 @@ function Profile() {
           position: "relative",
           pt: 5,
           borderRadius: "3px",
-          "@media (max-width:600px)": {
+          "@media (max-width:450px)": {
             width: "100%",
             height: "550px", // Ajuste para telas menores
           },

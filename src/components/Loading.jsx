@@ -3,7 +3,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
 
-function Loading({top, width}) {
+function Loading({ top, width }) {
   const { loading } = useSelector((state) => state.loading);
 
   return (
@@ -12,10 +12,10 @@ function Loading({top, width}) {
         position: "absolute",
         width: width ? width : "100%",
         zIndex: 1,
-        top: {top},
+        top: { top },
       }}
     >
-      {loading  ? <LinearProgress/> : false}
+      {loading ? <LinearProgress /> : false}
     </Box>
   );
 }

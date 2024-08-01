@@ -8,13 +8,13 @@ import {
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
-import EmailIcon from '@mui/icons-material/Email';
+import EmailIcon from "@mui/icons-material/Email";
 import backgroundImage from "../assets/login_background_images/background-circle.png";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import axiosConfig from "../utils/axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import CustomaizedButton from "../components/Button";
 import Loading from "../components/Loading";
 import { useDispatch } from "react-redux";
 import { loadingTrue, loadingFalse } from "../redux/loading/loadingSlice";
@@ -138,9 +138,15 @@ function Signup() {
             type="username"
             id="username"
             label="Nome"
+            required
             variant="filled"
             autoComplete="on"
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+              "& .MuiFormLabel-asterisk": {
+                display: "none",
+              },
+            }}
           />
         </Box>
 
@@ -166,10 +172,16 @@ function Signup() {
             onChange={handleChange}
             type="email"
             id="email"
+            required
             label="Email"
             variant="filled"
             autoComplete="on"
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+              "& .MuiFormLabel-asterisk": {
+                display: "none",
+              },
+            }}
           />
         </Box>
 
@@ -195,25 +207,26 @@ function Signup() {
             onChange={handleChange}
             type="password"
             id="password"
+            required
             label="Senha"
             variant="filled"
             autoComplete="on"
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+              "& .MuiFormLabel-asterisk": {
+                display: "none",
+              },
+            }}
           />
         </Box>
-        <Button
-          sx={{
-            mt: 5,
-            width: "80%",
-            height: "50px",
-            backgroundColor: "#491290",
-          }}
-          variant="contained"
+        <CustomaizedButton
+          color="#491290"
+          text="Registrar"
+          width="80%"
+          height="50px"
+          margin="30px 0 0 0"
           type="submit"
-        >
-          Registrar
-        </Button>
-
+        />
         <Box sx={{ paddingTop: "30px" }}>ou conecte com o Google</Box>
         <OAuth></OAuth>
       </Box>

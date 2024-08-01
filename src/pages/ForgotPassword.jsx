@@ -1,8 +1,6 @@
 import {
   TextField,
-  Button,
   Box,
-  Container,
   IconButton,
   CardMedia,
   Typography,
@@ -12,8 +10,8 @@ import backgroundImage from "../assets/login_background_images/background-circle
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import axiosConfig from "../utils/axios";
 import { useNavigate } from "react-router-dom";
-
-import EmailIcon from '@mui/icons-material/Email';
+import CustomaizedButton from "../components/Button";
+import EmailIcon from "@mui/icons-material/Email";
 import Loading from "../components/Loading";
 import { useDispatch } from "react-redux";
 import { loadingTrue, loadingFalse } from "../redux/loading/loadingSlice";
@@ -112,7 +110,6 @@ function ForgotPassword() {
           Digite seu endereço de e-mail para receber um link de redefinição de
           senha!
         </Typography>
-
         <Box
           sx={{
             display: "flex",
@@ -138,22 +135,24 @@ function ForgotPassword() {
             label="Email"
             variant="filled"
             autoComplete="on"
-            sx={{ width: "100%" }}
+            required
+            sx={{
+              width: "100%",
+              "& .MuiFormLabel-asterisk": {
+                display: "none",
+              },
+            }}
           />
         </Box>
-
-        <Button
-          sx={{
-            mt: 5,
-            width: "80%",
-            height: "50px",
-            backgroundColor: "#491290",
-          }}
-          variant="contained"
+        <CustomaizedButton
+          color="#491290"
+          text="Enviar"
+          width="80%"
+          height="50px"
+          margin="30px 0 0 0"
           type="submit"
-        >
-          Enviar
-        </Button>
+        />
+        +
       </Box>
     </Box>
   );

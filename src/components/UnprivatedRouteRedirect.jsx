@@ -5,7 +5,7 @@ import { Outlet, Navigate } from "react-router-dom";
 function PraviteRoute() {
   const { currentUser } = useSelector((state) => state.user);
 
-  return currentUser ? <Navigate to="/home" /> :  <Outlet />;
+  return currentUser ? <Navigate to="/home" /> : <Outlet />;
 }
 
 export default PraviteRoute;
