@@ -91,7 +91,7 @@ function Signup() {
             width: "100%",
             height: "550px", // Ajuste para telas menores
           },
-          "@media (max-height:700px)": {
+          "@media (max-height:600px)": {
             maxHeight: "400px",
             pb: 3,
           },

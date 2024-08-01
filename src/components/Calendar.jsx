@@ -43,7 +43,7 @@ const style = {
   boxShadow: 24,
   minWidth: "800px",
   maxHeight: "500px",
-  "@media (max-height:700px)": {
+  "@media (max-height:500px)": {
     maxHeight: "400px",
     pb: 3,
   },
@@ -67,7 +67,7 @@ const style2 = {
     width: "100%",
     minWidth: 0,
   },
-  "@media (max-height:700px)": {
+  "@media (max-height:500px)": {
     maxHeight: "400px",
     pb: 3,
   },

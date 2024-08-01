@@ -87,7 +87,7 @@ function ResetPassword() {
             width: "100%",
             height: "550px",
           },
-          "@media (max-height:700px)": {
+          "@media (max-height:600px)": {
             maxHeight: "400px",
             pb: 3,
           },
