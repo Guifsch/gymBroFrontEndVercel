@@ -156,7 +156,14 @@ export default function Header() {
                 </Link>
               )}
             </Container>
-            <Box sx={{ mr: 3 }}>
+            <Box
+              sx={{
+                mr: 3,
+                "@media (max-width:400px)": {
+                  display: "none",
+                },
+              }}
+            >
               <Typography>{currentUser.username}</Typography>
             </Box>
 

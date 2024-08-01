@@ -76,7 +76,7 @@ function ForgotPassword() {
           margin: "25px",
           position: "relative",
           boxShadow: "5px 5px 15px 1px",
-          borderRadius: "3px",
+          borderRadius: "5px",
           width: "450px",
           overflow: "overlay",
           height: "600px",

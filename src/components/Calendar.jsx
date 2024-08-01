@@ -36,17 +36,13 @@ const style = {
   left: "50%",
   padding: "20px",
   transform: "translate(-50%, -50%)",
-  borderRadius: "2%",
+  borderRadius: "5px",
   overflow: "overlay",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
   minWidth: "800px",
   maxHeight: "500px",
-  "@media (max-width:800px)": {
-    width: "100%",
-    minWidth: 0,
-  },
   "@media (max-height:700px)": {
     maxHeight: "400px",
     pb: 3,
@@ -59,7 +55,7 @@ const style2 = {
   left: "50%",
   padding: "20px",
   transform: "translate(-50%, -50%)",
-  borderRadius: "2%",
+  borderRadius: "5px",
   overflow: "overlay",
   bgcolor: "background.paper",
   border: "2px solid #000",
@@ -474,7 +470,7 @@ const Calendar = ({ sets }) => {
                 "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)",
               padding: "6px 16px",
               ml: 3,
-              borderRadius: "4px",
+              borderRadius: "5px",
               backgroundColor: "#491290",
               color: "white",
               "@media (max-width:1000px)": {
@@ -1074,6 +1070,7 @@ const Calendar = ({ sets }) => {
               onClick={() => handleAddEvent(event)}
               sx={{
                 cursor: "pointer",
+                borderRadius: "5px",
                 padding: "10px",
                 borderBottom: "1px solid #ddd",
                 background: "#3788d8",

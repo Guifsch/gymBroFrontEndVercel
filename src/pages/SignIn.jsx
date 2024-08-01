@@ -78,7 +78,7 @@ function Signin() {
           zIndex: 1,
           margin: "25px",
           boxShadow: "5px 5px 15px 1px",
-          borderRadius: "3px",
+          borderRadius: "5px",
           position: "relative",
           overflow: "overlay",
           width: "450px",

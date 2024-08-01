@@ -223,7 +223,7 @@ export default function Workouts() {
     },
     muiTablePaperProps: {
       sx: {
-        borderRadius: "2%",
+        borderRadius: "5px",
       },
     },
   });

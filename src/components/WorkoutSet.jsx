@@ -117,7 +117,7 @@ export default function Workouts() {
               key={index}
               sx={{
                 display: "flex",
-                borderRadius: "3px",
+                borderRadius: "5px",
                 border: "solid 2px",
                 padding: "10px",
                 width: "26%",
@@ -143,6 +143,7 @@ export default function Workouts() {
                 onClick={() => handleOpenSerieModalUpdate(item)}
                 sx={{
                   border: "solid 1px",
+                  borderRadius: "5px",
                   display: "flex",
                   alignItems: "center",
                   backgroundColor: item.cardColor,
