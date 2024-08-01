@@ -4,8 +4,9 @@ import { app } from "../firebase";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
-import GoogleIcon from "@mui/icons-material/Google";
+import googleIcon from '../assets/icons/google-icon-png.png'
 import IconButton from "@mui/material/IconButton";
+import { CardMedia} from "@mui/material";
 import axiosConfig from "../utils/axios";
 import { snackBarMessageSuccess, snackBarMessageError } from "../redux/snackbar/snackBarSlice";
 
@@ -51,7 +52,15 @@ const handleGoogleClick = async () => {
           aria-label="delete"
           size="small"
         >
-          <GoogleIcon sx={{color: "#DB4437"}}  fontSize="small" />
+            <CardMedia
+        sx={{
+          width: "50px",
+          height: "50px",
+        }}
+        component="img"
+        image={googleIcon}
+        alt="Background-image"
+      />
         </IconButton>
       </div>
   );

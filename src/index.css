@@ -64,29 +64,38 @@ html {
     width: auto;
 }
 
-.fc-event {
-    margin: 10px 0;
+.fc-event-title {
+    word-break: break-word;
     padding: 5px;
+    max-width: 95%;
+}
+
+.fc-event-draggable-content {
+    margin: 10px 0;
+    padding: 10px;
     background: #3788d8;
     color: white;
     border-radius: 3px;
     cursor: pointer;
-    word-break: auto-phrase;
-
+    word-break: break-word;
 }
+
 .fc-daygrid-event {
     white-space: normal;
 }
+
 .fc-dayGridMonth-view {
     overflow-x: overlay;
     width: 920px;
     height: 685px;
 }
+
 @media only screen and (max-width: 650px) {
     .fc-dayGridMonth-view {
         height: 500px;
     }
-  }
+}
+
 .MuiFormControl-root {
     min-width: 120px;
     margin-right: 20px;

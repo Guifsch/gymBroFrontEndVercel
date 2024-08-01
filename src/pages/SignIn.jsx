@@ -8,23 +8,15 @@ import {
 } from "../redux/snackbar/snackBarSlice";
 import OAuth from "../components/OAuth";
 import axiosConfig from "../utils/axios";
-import {
-  Button,
-  Box,
-  TextField,
-  Typography,
-  Container,
-  CardMedia,
-} from "@mui/material";
+import { Button, Box, TextField, CardMedia, Typography } from "@mui/material";
 
-import gymBroLogoSvg from "../assets/icons/arm-logo-svg.svg";
 import Loading from "../components/Loading";
 import { useDispatch } from "react-redux";
 import { loadingTrue, loadingFalse } from "../redux/loading/loadingSlice";
 
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from "@mui/icons-material/Lock";
-import backgroundImage from "../assets/login_background_images/gym_background.jpg";
+import backgroundImage from "../assets/login_background_images/background-circle.png";
 function Signin() {
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
@@ -57,7 +49,10 @@ function Signin() {
   };
 
   return (
-    <Box className="flex justify-center items-center h-screen">
+    <Box
+      className="flex justify-center items-center h-screen"
+      sx={{ background: "-webkit-linear-gradient(bottom, #0250c5, #250039)" }}
+    >
       <CardMedia
         sx={{
           width: "100%",
@@ -78,10 +73,11 @@ function Signin() {
         component="form"
         sx={{
           backgroundColor: "white",
+          pt: 10,
           zIndex: 1,
           margin: "25px",
           boxShadow: "5px 5px 15px 1px",
-          borderRadius: "5%",
+          borderRadius: "3px",
           position: "relative",
           overflow: "overlay",
           width: "450px",
@@ -89,121 +85,117 @@ function Signin() {
           "@media (max-width:600px)": {
             width: "100%",
             height: "600px",
-            pt: 2,
+            pt: 5,
           },
           "@media (max-height:700px)": {
-            maxHeight: '400px',
-            pb: 3
+            maxHeight: "400px",
+            pb: 5,
           },
         }}
       >
         <Loading top="0" />
-        <CardMedia
-          sx={{
-            my: 3,
-            width: "3em",
-            height: "3em",
-            display: "inline-block",
-            fontSize: "1.5rem",
-          }}
-          component="img"
-          image={gymBroLogoSvg}
-        />
-        <Typography variant="h4" textAlign="center">
-          Bem vindo!
+        <Typography variant="h4" textAlign="center" sx={{ fontWeight: "bold" }}>
+          Login
         </Typography>
-        <Container
+        <Box
           sx={{
             display: "flex",
-            alignItems: "flex-end",
+            alignItems: "center",
             justifyContent: "center",
             mt: 3,
+            width: "80%",
           }}
         >
-          <Box
+          <EmailIcon
             sx={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "center",
+              color: "action.active",
+              mr: 1,
+              my: 0.5,
+              width: "1.3em",
+              height: "1.3em",
             }}
-          >
-            <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              onChange={handleChange}
-              type="email"
-              required
-              id="email"
-              label="Email"
-              variant="standard"
-              autoComplete="on"
-            />
-          </Box>
-        </Container>
-        <Container
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            mt: 3,
-          }}
-        >
-          <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-            <LockIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              onChange={handleChange}
-              type="password"
-              required
-              id="password"
-              label="Password"
-              variant="standard"
-              autoComplete="off"
-            />
-          </Box>
-        </Container>
+          />
+          <TextField
+            onChange={handleChange}
+            type="email"
+            id="email"
+            label="Email"
+            variant="filled"
+            autoComplete="on"
+            sx={{ width: "100%" }}
+          />
+        </Box>
 
         <Box
-          className="text-sm font-medium text-gray-900 dark:text-gray-300
-          "
-          sx={{
-            display: "flex",
-            marginTop: "50px",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+          sx={{ display: "flex", alignItems: "center", mt: 3, width: "80%" }}
         >
-          Você não possui uma conta?
-          <Link to="/sign-up" className="text-blue-500 ml-1">
-            Registre-se!
-          </Link>
-        </Box>
-        <Box
-          className="text-sm font-medium text-gray-900 dark:text-gray-300
-          "
-          sx={{
-            display: "flex",
-            marginTop: "30px",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Link to="/forgot-password" className="text-blue-500 ml-1">
-            Esqueceu sua senha?
-          </Link>
+          <LockIcon
+            sx={{
+              color: "action.active",
+              mr: 1,
+              my: 0.5,
+              width: "1.3em",
+              height: "1.3em",
+            }}
+          />
+          <TextField
+            onChange={handleChange}
+            type="password"
+            id="password"
+            label="Password"
+            variant="filled"
+            autoComplete="off"
+            sx={{ width: "100%" }}
+          />
         </Box>
 
         <Button
           sx={{
-            my: 3,
+            mt: 5,
+            width: "80%",
+            height: "50px",
+            backgroundColor: "#491290",
           }}
           variant="contained"
           type="submit"
         >
           Entrar
         </Button>
-        <div className="text-sm font-medium text-gray-900 dark:text-gray-300">
-          ou conecte com o Google
-        </div>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "end",
+            width: "80%",
+            paddingTop: "10px",
+            transition: "0.2s",
+            "&:hover": { color: "#044cbe;" },
+          }}
+        >
+          <Link to="/forgot-password">Esqueceu sua senha?</Link>
+        </Box>
+
+        <Box sx={{ paddingTop: "30px" }}>ou conecte com o Google</Box>
         <OAuth></OAuth>
+        <Box
+          sx={{
+            display: "flex",
+            marginTop: "40px",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          Você não possui uma conta?
+          <Box
+            sx={{
+              color: "#044cbe",
+              "&:hover": { color: "black" },
+            }}
+          >
+            <Link to="/sign-up">Registre-se!</Link>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

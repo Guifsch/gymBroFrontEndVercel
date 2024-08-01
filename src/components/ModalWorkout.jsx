@@ -11,6 +11,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  FormControl,
   LinearProgress,
 } from "@mui/material";
 import ImageWithPlaceholder from "../utils/imagePlaceHolderUntilLoad";
@@ -20,6 +21,7 @@ import {
   snackBarMessageError,
 } from "../redux/snackbar/snackBarSlice";
 
+import CustomaizedButton from "../components/Button";
 import { validateInputPost } from "../utils/validateInputPost";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useCallback, useState, useEffect, useRef } from "react";
@@ -39,23 +41,21 @@ const MenuProps = {
   PaperProps: {
     sx: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 246.47,
-      "@media (max-width:800px)": {
-        width: " 100%",
-      },
+      width: 247.31
     },
   },
+
 };
 
 const style = {
   position: "absolute",
   width: " 100%",
   top: "50%",
-  borderRadius: "2%",
+  borderRadius: "5px",
   left: "50%",
   transform: "translate(-50%, -50%)",
   maxWidth: 1000,
-  maxHeight: 600,
+  maxHeight: 650,
   bgcolor: "background.paper",
   border: "2px solid #000",
   overflowY: "overlay",
@@ -67,7 +67,7 @@ const style = {
     width: " 100%",
   },
   "@media (max-height:700px)": {
-    maxHeight: '400px',
+    maxHeight: "400px",
   },
 };
 
@@ -271,7 +271,6 @@ export default function ModalWorkout({
       dispatch(snackBarMessageError(e.response.data.error));
     } finally {
       setLoading(false);
-      setImagePreview(null);
       getWorkoutRefValue();
       if (fileRef.current) {
         fileRef.current.value = ""; // Resetar o valor do input do tipo file
@@ -301,7 +300,6 @@ export default function ModalWorkout({
     } finally {
       getWorkoutRefValue();
       setLoading(false);
-      setImagePreview(undefined);
     }
   };
 
@@ -330,7 +328,7 @@ export default function ModalWorkout({
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       open={open}
-      onClose={handleClose}
+      onClose={() => { handleClose(); setImagePreview(undefined) }}
       closeAfterTransition
       slots={{ backdrop: Backdrop }}
       slotProps={{
@@ -342,7 +340,7 @@ export default function ModalWorkout({
     >
       <Box sx={style}>
         <IconButton
-          onClick={handleClose}
+         onClick={() => { handleClose(); setImagePreview(undefined) }}
           size="large"
           sx={{
             position: "absolute",
@@ -355,24 +353,6 @@ export default function ModalWorkout({
         >
           <CloseIcon fontSize="inherit" />
         </IconButton>
-
-        {modalImageShow ? (
-          false
-        ) : (
-          <Typography
-            textAlign="center"
-            sx={{
-              position: "absolute",
-              right: "25%",
-              left: "25%",
-              top: "5px",
-              fontSize: "0.8em",
-              color: "red",
-            }}
-          >
-            campos com * são obrigatórios...
-          </Typography>
-        )}
 
         {loading ? (
           <LinearProgress
@@ -412,23 +392,23 @@ export default function ModalWorkout({
           <Box
             className="boxDad"
             sx={{
-              "&:hover > svg": {
-                visibility: "visible",
-                transition: "0.5s",
-                opacity: 1,
-              },
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              p: 5,
             }}
           >
-            <Container
+            <Box
               sx={{
+                "&:hover > svg": {
+                  visibility: "visible",
+                  transition: "0.5s",
+                  opacity: 1,
+                },
                 display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "space-around",
-                paddingTop: "50px",
-                "@media (max-width:800px)": {
+                flexDirection: "row",
+                alignItems: "flex-start",
+                "@media (max-width:1000px)": {
                   flexDirection: "column",
                   "& > div": {
                     width: "100%",
@@ -436,201 +416,193 @@ export default function ModalWorkout({
                 },
               }}
             >
-              <TextField
-                onChange={handleChange}
-                type="name"
-                required
-                id="name"
-                value={content.name}
-                label="Nome"
-                variant="standard"
-                autoComplete="on"
-                sx={{
-                  "& input": {
-                    borderBottom: "2px solid black",
-                  },
-                  width: "26%",
-                  marginRight: "5%",
-                  marginTop: "5%",
-                }}
-              />
-              <TextField
-                onChange={handleChange}
-                type="rep"
-                value={content.rep}
-                required
-                id="rep"
-                label="Repetições"
-                variant="standard"
-                autoComplete="on"
-                sx={{
-                  "& input": {
-                    borderBottom: "2px solid black",
-                  },
-                  width: "26%",
-                  marginRight: "5%",
-                  marginTop: "5%",
-                }}
-              />
-              <TextField
-                onChange={handleChange}
-                type="serie"
-                required
-                id="serie"
-                value={content.serie}
-                label="Series"
-                variant="standard"
-                autoComplete="on"
-                sx={{
-                  "& input": {
-                    borderBottom: "2px solid black",
-                  },
-                  width: "26%",
-                  marginRight: "5%",
-                  marginTop: "5%",
-                }}
-              />
-              <TextField
-                onChange={handleChange}
-                type="weight"
-                required
-                id="weight"
-                label="Peso"
-                value={content.weight}
-                variant="standard"
-                autoComplete="on"
-                sx={{
-                  "& input": {
-                    borderBottom: "2px solid black",
-                  },
-                  width: "26%",
-                  marginRight: "5%",
-                  marginTop: "5%",
-                }}
-              />
               <Box
                 sx={{
-                  width: "26%",
-                  marginRight: "5%",
-                  marginTop: "5%",
-                }}
-              >
-                <Box sx={{ minWidth: 80, width: "100%" }}>
-                  <InputLabel
-                    sx={{ fontSize: "1rem" }}
-                    id="demo-simple-select-autowidth-label"
-                  >
-                    Categoria*
-                  </InputLabel>
-
-                  <Select
-                    sx={{
-                      borderBottom: "2px solid black",
-                      width: "100%",
-                    }}
-                    labelId="demo-simple-select-autowidth-label"
-                    id="demo-simple-select-autowidth"
-                    value={selectedOption || ""}
-                    onChange={handleChangeCategory}
-                    variant="filled"
-                    autoWidth
-                    label="Selecione uma opção"
-                    MenuProps={MenuProps}
-                  >
-                    <MenuItem value="">
-                      <em>Nenhum</em>
-                    </MenuItem>
-                    {workoutsCategorys.map((option) => (
-                      <MenuItem key={option._id} value={option._id}>
-                        {option.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Box>
-              </Box>
-              <TextField
-                id="comment"
-                label="Comentário"
-                multiline
-                type="comment"
-                value={content.comment || ""}
-                onChange={handleChange}
-                maxRows={4}
-                sx={{
-                  "& > div": { height: "100px" },
-                  width: "26%",
-                  marginRight: "5%",
-                  marginTop: "5%",
-                }}
-              />
-            </Container>
-            {allValuesAreEmpty ? (
-              <Button
-                sx={{
-                  mt: 5,
-                }}
-                variant="contained"
-                type="submit"
-                onClick={submitWorkout}
-              >
-                Salvar
-              </Button>
-            ) : (
-              <Button
-                sx={{
-                  mt: 5,
-                }}
-                variant="contained"
-                type="submit"
-                onClick={submitWorkoutUpdate}
-              >
-                Atualizar
-              </Button>
-            )}
-
-            <Container
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                py: 5,
-              }}
-            >
-              <input
-                type="file"
-                hidden
-                accept="image/png, image/jpeg"
-                onChange={(e) => profileImage(e)}
-                ref={fileRef}
-              />
-              <Button
-                variant="contained"
-                onClick={() => fileRef.current.click()}
-              >
-                Escolher arquivo
-              </Button>
-              {imagePreview || content.exercisePicture ? (
-                <ImageWithPlaceholder
-                  src={imagePreview || content.exercisePicture}
-                  alt="Imagem do treino"
-                  width="300px"
-                  height="450px"
-                  marginTop="30px"
-                />
-              ) : (
-                <Typography
-                  sx={{
-                    display: "flex",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "flex-start",
+                  width: "60%",
+                  "@media (max-width:1000px)": {
                     flexDirection: "column",
-                    alignItems: "center",
-                    my: 5,
+                    pb: 5,
+                    "& > div": {
+                      width: "100%",
+                    },
+                  },
+                }}
+              >
+                <TextField
+                  onChange={handleChange}
+                  type="name"
+                  required
+                  id="name"
+                  value={content.name}
+                  label="Nome"
+                  variant="filled"
+                  autoComplete="on"
+                  sx={{
+                    width: "45.001%",
+                    marginRight: "5%",
                   }}
-                  variant="h5"
+                />
+                <TextField
+                  onChange={handleChange}
+                  type="rep"
+                  value={content.rep}
+                  required
+                  id="rep"
+                  label="Repetições"
+                  variant="filled"
+                  autoComplete="on"
+                  sx={{
+                    width: "45.001%",
+                    marginRight: "5%",
+                    "@media (max-width:1000px)": {
+                      marginTop: "5%",
+                    },
+                  }}
+                />
+                <TextField
+                  onChange={handleChange}
+                  type="serie"
+                  required
+                  id="serie"
+                  value={content.serie}
+                  label="Series"
+                  variant="filled"
+                  autoComplete="on"
+                  sx={{
+                    width: "45.001%",
+                    marginRight: "5%",
+                    marginTop: "5%",
+                  }}
+                />
+
+                <TextField
+                  onChange={handleChange}
+                  type="weight"
+                  required
+                  id="weight"
+                  label="Peso"
+                  value={content.weight}
+                  variant="filled"
+                  autoComplete="on"
+                  sx={{
+                    width: "45.001%",
+                    marginRight: "5%",
+                    marginTop: "5%",
+                  }}
+                />
+                <Box
+                  sx={{
+                    width: "45.001%",
+                    marginRight: "5%",
+                    marginTop: "5%",
+                  }}
                 >
-                  Selecione sua imagem*
-                </Typography>
-              )}
-            </Container>
+                  <FormControl variant="filled" sx={{ width: "100%" }}>
+                    <InputLabel id="demo-simple-select-autowidth-label">
+                      Categoria
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-autowidth-label"
+                      id="demo-simple-select-autowidth"
+                      value={selectedOption || ""}
+                      onChange={handleChangeCategory}
+                      autoWidth
+                      MenuProps={MenuProps}
+                    >
+                      <MenuItem value="">
+                        <em>Nenhum</em>
+                      </MenuItem>
+                      {workoutsCategorys.map((option) => (
+                        <MenuItem key={option._id} value={option._id}>
+                          {option.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Box>
+                <TextField
+                  id="comment"
+                  label="Comentário"
+                  multiline
+                  type="comment"
+                  value={content.comment || ""}
+                  onChange={handleChange}
+                  maxRows={4}
+                  sx={{
+                    "& > div": { height: "100px" },
+                    width: "45.001%",
+                    marginRight: "5%",
+                    marginTop: "5%",
+                  }}
+                />
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  width: "40%",
+                }}
+              >
+                <input
+                  type="file"
+                  hidden
+                  accept="image/png, image/jpeg"
+                  onChange={(e) => profileImage(e)}
+                  ref={fileRef}
+                />
+
+                <CustomaizedButton
+                  onClick={() => fileRef.current.click()}
+                  color="#491290"
+                  text=" Escolher arquivo"
+               
+                />
+
+                {imagePreview || content.exercisePicture ? (
+                  <ImageWithPlaceholder
+                    src={imagePreview || content.exercisePicture}
+                    alt="Imagem do treino"
+                    width="300px"
+                    height="300px"            
+                    marginTop="30px"
+                  />
+                ) : (
+                  <Typography
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      my: 5,
+                    }}
+                    variant="h5"
+                  >
+                    Selecione sua imagem*
+                  </Typography>
+                )}
+              </Box>
+            </Box>
+            {allValuesAreEmpty ? (
+              <CustomaizedButton
+                onClick={submitWorkout}
+                color="#3a9906"
+                text="Salvar"
+                width="150px"
+                margin="50px 0 0 0"
+              />
+            ) : (
+              <CustomaizedButton
+                onClick={submitWorkoutUpdate}
+                color="#3a9906"
+                text=" Atualizar"
+                width="150px"
+                margin="50px 0 0 0"
+              />
+            )}
           </Box>
         )}
       </Box>

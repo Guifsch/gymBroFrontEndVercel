@@ -13,10 +13,13 @@ import {
   ListItemText,
   TextField,
   Container,
-  Button,
   LinearProgress,
+  Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import Chrome from "@uiw/react-color-chrome";
+import { GithubPlacement } from "@uiw/react-color-github";
+import CustomaizedButton from "../components/Button";
 import { useTheme } from "@mui/material/styles";
 import {
   snackBarMessageSuccess,
@@ -32,8 +35,8 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 600,
-  borderRadius: "2%",
-  height: 470,
+  borderRadius: "5px",
+  height: 750,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -41,9 +44,9 @@ const style = {
   "@media (max-width:600px)": {
     width: "100%",
   },
-  "@media (max-height:700px)": {
-    maxHeight: '400px',
-    pb: 3
+  "@media (max-height:750px)": {
+    maxHeight: "400px",
+    pb: 3,
   },
 };
 
@@ -71,10 +74,13 @@ export default function ModalWorkoutSerie({
   const [selectedItems, setSelectedItems] = useState([]); // Estado para armazenar os itens selecionados
   const [groupedWorkouts, setGroupedWorkouts] = useState({}); // Estado para armazenar os exercícios agrupados por categoria
   const [loading, setLoading] = useState(false);
+  const [textColor, setTextColor] = useState("#ffffff");
+  const [cardColor, setCardColor] = useState("#000000");
   const [formValues, setFormValues] = useState({
-    
     name: "",
     comment: "",
+    cardColor: "",
+    textColor: "",
     selectedItems: [],
   });
   const dispatch = useDispatch();
@@ -94,11 +100,13 @@ export default function ModalWorkoutSerie({
       } else {
         setSelectedItems([]);
       }
-
     } catch (e) {
       console.log(e);
     }
     setFormValues(modalContentUpdate);
+    setTextColor(modalContentUpdate.textColor);
+    setCardColor(modalContentUpdate.cardColor);
+    console.log(modalContentUpdate);
   }, [modalContentUpdate]);
 
   // Função para buscar os exercícios da API e agrupar por categoria
@@ -235,13 +243,13 @@ export default function ModalWorkoutSerie({
           <CloseIcon fontSize="inherit" />
         </IconButton>
         {loading ? (
-            <LinearProgress
-              sx={{
-                width: "100%",
-                position: "sticky",
-                top: 0,
-              }}
-            />
+          <LinearProgress
+            sx={{
+              width: "100%",
+              position: "sticky",
+              top: 0,
+            }}
+          />
         ) : (
           false
         )}
@@ -266,11 +274,10 @@ export default function ModalWorkoutSerie({
               id="name"
               value={formValues.name}
               label="Nome"
-              variant="standard"
+              variant="filled"
               autoComplete="on"
               sx={{
-                width: "30%",
-                marginRight: "5%",
+                width: "50%",
               }}
             />
             <TextField
@@ -283,36 +290,43 @@ export default function ModalWorkoutSerie({
               maxRows={4}
               sx={{
                 "& > div": { height: "100px" },
-                width: "50%",
+                width: "60%",
                 marginTop: "5%",
               }}
             />
-            <Box sx={{ marginTop: "3%",
-             }}>
-              <FormControl sx={{ m: 1, width: 300 }} variant="filled">
+            <Box
+              sx={{
+                marginTop: "3%",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+              }}
+            >
+              <FormControl sx={{ m: 1, width: "60%" }} variant="filled">
                 <InputLabel id="select-label">Treinos*</InputLabel>
                 <Select
                   labelId="select-label"
                   multiple
                   value={selectedItems}
                   renderValue={(selected) => (
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5,}}>
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                       {selected.map((id) => (
-                        <Chip 
-                        key={id} label={getWorkoutNameById(id)} sx={{margin: '2px'}}/>
+                        <Chip
+                          key={id}
+                          label={getWorkoutNameById(id)}
+                          sx={{ margin: "2px" }}
+                        />
                       ))}
                     </Box>
                   )}
                 >
-                  <Box sx={{ overflow: "scroll", height: "250px"}}>
+                  <Box sx={{ overflow: "scroll", height: "250px" }}>
                     <MenuItem
-                    
                       value=""
                       onClick={() => setSelectedItems([])} // Limpa todos os itens selecionados
                     >
-                      <ListItemText primary="Nenhum" 
-                      
-                      />
+                      <ListItemText primary="Nenhum" />
                     </MenuItem>
                     {Object.keys(groupedWorkouts).map((category) => (
                       <div key={category}>
@@ -349,30 +363,89 @@ export default function ModalWorkoutSerie({
                 </Select>
               </FormControl>
             </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                flexDirection: "row",
+                alignItems: "center",
+                width: "100%",
+                paddingTop: "30px",
+                "@media (max-width:600px)": {
+                  flexDirection: "column",
+                },
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography sx={{ paddingBottom: "10px" }}>
+                  Cor do texto
+                </Typography>
+                <Chrome
+                  color={textColor}
+                  style={{ float: "left" }}
+                  placement={GithubPlacement.Top}
+                  onChange={(color) => {
+                    setFormValues((prevValues) => ({
+                      ...prevValues,
+                      textColor: color.hex,
+                    }));
+                    setTextColor(color.hex);
+                  }}
+                />
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  "@media (max-width:600px)": {
+                    pt: 3,
+                  },
+                }}
+              >
+                <Typography sx={{ paddingBottom: "10px" }}>
+                  Cor do card
+                </Typography>
+                <Chrome
+                  color={cardColor}
+                  style={{ float: "left" }}
+                  placement={GithubPlacement.Top}
+                  onChange={(color) => {
+                    setFormValues((prevValues) => ({
+                      ...prevValues,
+                      cardColor: color.hex,
+                    }));
+                    setCardColor(color.hex);
+                  }}
+                />
+              </Box>
+            </Box>
           </Container>
 
           {modalContentUpdate.name === "" ? (
-            <Button
-              sx={{
-                my: 5,
-              }}
-              variant="contained"
-              type="submit"
+            <CustomaizedButton
               onClick={submitSet}
-            >
-              Salvar
-            </Button>
+              color="#3a9906"
+              text="Salvar"
+              width="150px"
+              margin="30px 0 30px 0"
+            />
           ) : (
-            <Button
-              sx={{
-                my: 5,
-              }}
-              variant="contained"
-              type="submit"
+            <CustomaizedButton
               onClick={submitSetUpdate}
-            >
-              Atualizar
-            </Button>
+              color="#3a9906"
+              text="Atualizar"
+              width="150px"
+              margin="30px 0 30px 0"
+            />
           )}
         </Box>
       </Box>

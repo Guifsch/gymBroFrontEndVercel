@@ -7,11 +7,11 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import backgroundImage from "../assets/login_background_images/gym_background.jpg";
+import backgroundImage from "../assets/login_background_images/background-circle.png";
 import axiosConfig from "../utils/axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import LockIcon from "@mui/icons-material/Lock";
 import Loading from "../components/Loading";
 import { useDispatch } from "react-redux";
 import { loadingTrue, loadingFalse } from "../redux/loading/loadingSlice";
@@ -25,17 +25,16 @@ function ResetPassword() {
   const [passwords, setPasswords] = useState({});
   const axiosInterceptor = axiosConfig();
   const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
-  const id= searchParams.get('id');
+  const token = searchParams.get("token");
+  const id = searchParams.get("id");
   let history = useNavigate();
   const handleChange = (e) => {
-    console.log(passwords)
+    console.log(passwords);
     setPasswords({ ...passwords, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
- 
 
     if (passwords.password !== passwords.confirmPassword) {
       dispatch(snackBarMessageError("As senhas não coincidem"));
@@ -47,7 +46,7 @@ function ResetPassword() {
       const newpassword = passwords.password;
       const response = await axiosInterceptor.post(
         `/api/reset/reset-password?token=${token}&id=${id}`,
-        {newPassword: newpassword}
+        { newPassword: newpassword }
       );
       history("/");
       dispatch(snackBarMessageSuccess(response.data.message));
@@ -59,7 +58,10 @@ function ResetPassword() {
   };
 
   return (
-    <Box className="flex justify-center items-center h-screen bg-slate-200">
+    <Box
+      className="flex justify-center items-center h-screen bg-slate-200"
+      sx={{ background: "-webkit-linear-gradient(bottom, #8f3001, #180700);" }}
+    >
       <CardMedia
         sx={{
           width: "100%",
@@ -94,84 +96,71 @@ function ResetPassword() {
             height: "550px",
           },
           "@media (max-height:700px)": {
-            maxHeight: '400px',
-            pb: 3
+            maxHeight: "400px",
+            pb: 3,
           },
         }}
       >
-        <Loading top="0"/>
-        <Typography variant="h4" textAlign="center">
-        Redefinir Senha
+        <Loading top="0" />
+        <Typography variant="h4" textAlign="center" sx={{ fontWeight: "bold" }}>
+          Redefinir Senha
         </Typography>
         <Typography variant="h8" textAlign="center" sx={{ mx: 5, mt: 3 }}>
-        Digite sua nova senha
+          Digite sua nova senha
         </Typography>
-        <Container
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            mt: 3,
-          }}
+
+        <Box
+          sx={{ display: "flex", alignItems: "center", mt: 3, width: "80%" }}
         >
-          <Box
+          <LockIcon
             sx={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "center",
+              color: "action.active",
+              mr: 1,
+              my: 0.5,
+              width: "1.3em",
+              height: "1.3em",
             }}
-          >
-            <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              onChange={handleChange}
-              type="password"
-              required
-              id="password"
-              label="Nova senha"
-              variant="standard"
-              autoComplete="on"
-            />
-          </Box>
-        </Container>
-        <Container
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            mt: 3,
-          }}
+          />
+          <TextField
+            onChange={handleChange}
+            type="password"
+            id="password"
+            label="Nova senha"
+            variant="filled"
+            autoComplete="off"
+            sx={{ width: "100%" }}
+          />
+        </Box>
+
+        <Box
+          sx={{ display: "flex", alignItems: "center", mt: 3, width: "80%" }}
         >
-          <Box
+          <LockIcon
             sx={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "center",
+              color: "action.active",
+              mr: 1,
+              my: 0.5,
+              width: "1.3em",
+              height: "1.3em",
             }}
-          >
-            <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              onChange={handleChange}
-              type="password"
-              required
-              id="confirmPassword"
-              label="Confirme a nova senha"
-              variant="standard"
-              autoComplete="on"
-            />
-          </Box>
-        </Container>
-        <Container
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            mt: 3,
-          }}
-        ></Container>
+          />
+          <TextField
+            onChange={handleChange}
+            type="password"
+            id="confirmPassword"
+            label="Confirme a nova senha"
+            variant="filled"
+            autoComplete="off"
+            sx={{ width: "100%" }}
+          />
+        </Box>
 
         <Button
           sx={{
-            my: 3,
+            mt: 5,
+            width: "80%",
+            height: "50px",
+            backgroundColor: "#491290",
           }}
           variant="contained"
           type="submit"

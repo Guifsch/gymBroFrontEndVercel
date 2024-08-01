@@ -3,6 +3,7 @@ import {
   snackBarMessageSuccess,
   snackBarMessageError,
 } from "../redux/snackbar/snackBarSlice";
+import CustomaizedButton from "../components/Button";
 import { Container, Box, Typography, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import React, { useCallback, useState, useEffect } from "react";
@@ -16,6 +17,8 @@ export default function Workouts() {
   const [modalContentUpdate, setModalContentUpdate] = useState({
     name: "",
     comment: "",
+    cardColor: "",
+    textColor: "",
     selectedItems: [],
   });
   const [sets, setSets] = useState([]);
@@ -64,23 +67,31 @@ export default function Workouts() {
   };
 
   const handleCloseSerieModal = () => {
-    setModalContentUpdate({ name: "", comment: "", selectedItems: [] });
+    setModalContentUpdate({
+      name: "",
+      comment: "",
+      cardColor: "",
+      textColor: "",
+      selectedItems: [],
+    });
     setOpenSerieModal(false);
   };
 
   return (
     <Box className="flex flex-col justify-initial items-center">
-      <Button variant="contained" onClick={handleOpenSerieModal}>
-        <Typography variant="h7" textAlign="center">
-          Enviar Set
-        </Typography>
-      </Button>
+      <CustomaizedButton
+        onClick={handleOpenSerieModal}
+        color="#491290"
+        text="Enviar Set"
+        width="150px"
+      />
       <Box
         sx={{
           display: "flex",
           justifyContent: "center",
-          paddingLeft: "18%",
+          paddingLeft: "9.5%",
           width: "100%",
+          pt: 3,
           "@media (max-width:1000px)": {
             paddingLeft: 0,
           },
@@ -103,8 +114,10 @@ export default function Workouts() {
               key={index}
               sx={{
                 display: "flex",
-                borderRadius: "5%",
-                width: "22%",
+                borderRadius: "3px",
+                border: "solid 2px",
+                padding: '10px',
+                width: "26%",
                 alignItems: "center",
                 justifyContent: "start",
                 flexDirection: "column",
@@ -116,18 +129,20 @@ export default function Workouts() {
                 },
               }}
             >
-              <Button
-                sx={{ marginTop: "10px" }}
-                onClick={() => deleteSet(item)}
-              >
-                Deletar
-              </Button>
+              <Box sx={{ mb: 1 }}>
+                <CustomaizedButton
+                  onClick={() => deleteSet(item)}
+                  color="#bb0000"
+                  text="Deletar"
+                />
+              </Box>
               <Container
                 onClick={() => handleOpenSerieModalUpdate(item)}
                 sx={{
                   border: "solid 1px",
                   display: "flex",
                   alignItems: "center",
+                  backgroundColor: item.cardColor,
                   justifyContent: "start",
                   flexDirection: "column",
                   wordBreak: "break-word",
@@ -140,7 +155,7 @@ export default function Workouts() {
                   variant="h5"
                   autoComplete="on"
                   marginTop="10px"
-                  sx={{ fontWeight: "bold", px: "15px" }}
+                  sx={{ fontWeight: "bold", px: "15px", color: item.textColor }}
                 >
                   {item.name}
                 </Typography>
@@ -150,6 +165,7 @@ export default function Workouts() {
                   variant="standard"
                   autoComplete="on"
                   marginY="10px"
+                  sx={{ color: item.textColor }}
                 >
                   {item.comment}
                 </Typography>

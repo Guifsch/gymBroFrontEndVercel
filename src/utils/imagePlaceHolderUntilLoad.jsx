@@ -47,7 +47,7 @@ const ImageWithPlaceholder = ({
           width: "100%",
           height: "100%",
           borderRadius,
-          objectFit: "cover",
+          objectFit: "contain",
           display: loaded ? "block" : "none",
         }}
       />

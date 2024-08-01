@@ -12,6 +12,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import CreateIcon from "@mui/icons-material/Create";
+import CustomaizedButton from "../components/Button";
 import Loading from "../components/Loading";
 import LogoAvatarStandard from "../assets/icons/logo_standard.jpg";
 import ImageWithPlaceholder from "../utils/imagePlaceHolderUntilLoad";
@@ -183,7 +184,10 @@ function Profile() {
   };
 
   return (
-    <Box className="flex justify-center items-center h-screen pageMarginTopNavFix">
+    <Box
+      className="flex justify-center items-center h-screen pageMarginTopNavFix"
+      sx={{ background: "-webkit-linear-gradient(bottom, #3b3939, #0a0707)" }}
+    >
       <Loading top="64px" width="100%" />
       <Box
         display="flex"
@@ -193,7 +197,7 @@ function Profile() {
         flexDirection="column"
         component="form"
         sx={{
-          height: "600px",
+          height: "650px",
           width: "450px",
           backgroundColor: "white",
           zIndex: 1,
@@ -201,7 +205,7 @@ function Profile() {
           boxShadow: "5px 5px 15px 1px",
           position: "relative",
           pt: 5,
-          borderRadius: "5%",
+          borderRadius: "3px",
           "@media (max-width:600px)": {
             width: "100%",
             height: "550px", // Ajuste para telas menores
@@ -212,7 +216,7 @@ function Profile() {
         }}
       >
         <Typography
-          variant="h4"
+          variant="h5"
           textAlign="center"
           sx={{ mb: 3, fontWeight: "bold" }}
         >
@@ -275,112 +279,95 @@ function Profile() {
             />
           </Box>
         </Box>
-        <Container
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            mt: 3,
-          }}
+
+        <Box
+          sx={{ display: "flex", alignItems: "center", mt: 3, width: "80%" }}
         >
-          <Box
+          <AccountCircle
             sx={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "center",
+              color: "action.active",
+              mr: 1,
+              my: 0.5,
+              width: "1.3em",
+              height: "1.3em",
             }}
-          >
-            <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              onChange={handleChange}
-              value={formData.username}
-              type="username"
-              required
-              id="username"
-              label="Nome"
-              variant="standard"
-              autoComplete="on"
-            />
-          </Box>
-        </Container>
-        <Container
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            mt: 3,
-          }}
+          />
+          <TextField
+            onChange={handleChange}
+            value={formData.username}
+            type="username"
+            id="username"
+            label="Nome"
+            variant="filled"
+            autoComplete="off"
+            sx={{ width: "100%" }}
+          />
+        </Box>
+
+        <Box
+          sx={{ display: "flex", alignItems: "center", mt: 3, width: "80%" }}
         >
-          <Box
+          <EmailIcon
             sx={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "center",
+              color: "action.active",
+              mr: 1,
+              my: 0.5,
+              width: "1.3em",
+              height: "1.3em",
             }}
-          >
-            <EmailIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              onChange={handleChange}
-              value={formData.email}
-              type="email"
-              required
-              id="email"
-              label="Email"
-              variant="standard"
-              autoComplete="on"
-            />
-          </Box>
-        </Container>
-        <Container
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            mt: 3,
-          }}
+          />
+          <TextField
+            onChange={handleChange}
+            value={formData.email}
+            type="email"
+            id="email"
+            label="Email"
+            variant="filled"
+            autoComplete="off"
+            sx={{ width: "100%" }}
+          />
+        </Box>
+
+        <Box
+          sx={{ display: "flex", alignItems: "center", mt: 3, width: "80%" }}
         >
-          <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-            <LockIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              onChange={handleChange}
-              type="password"
-              id="password"
-              label="Senha"
-              variant="standard"
-              autoComplete="off"
-            />
-          </Box>
-        </Container>
-        <Container
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "space-evenly",
-            mt: 3,
-          }}
-        >
-          <Button
+          <LockIcon
             sx={{
-              mb: 3,
-              mt: 3,
+              color: "action.active",
+              mr: 1,
+              my: 0.5,
+              width: "1.3em",
+              height: "1.3em",
             }}
-            variant="contained"
-            type="submit"
-          >
-            Atualizar
-          </Button>
-          <Button
-            sx={{
-              mb: 3,
-              mt: 3,
-            }}
-            variant="contained"
-            color="error"
-            onClick={handleDeleteAccount}
-          >
-            Excluir
-          </Button>
-        </Container>
+          />
+          <TextField
+            onChange={handleChange}
+            type="password"
+            id="password"
+            label="Senha"
+            variant="filled"
+            autoComplete="off"
+            sx={{ width: "100%" }}
+          />
+        </Box>
+
+        <CustomaizedButton
+          onClick={handleDeleteAccount}
+          color="#3a9906"
+          text="Atualizar"
+          width="80%"
+          height="50px"
+          margin="40px 0 0 0"
+        />
+
+        <CustomaizedButton
+          onClick={handleDeleteAccount}
+          color="#bb0000"
+          text="Excluir"
+          width="80%"
+          height="50px"
+          margin="24px 0 20px 0"
+        />
       </Box>
     </Box>
   );

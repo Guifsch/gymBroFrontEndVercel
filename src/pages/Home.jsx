@@ -1,12 +1,10 @@
 import Calendar from "../components/Calendar";
-import { CssBaseline, Box  } from "@mui/material";
+import { CssBaseline, Box } from "@mui/material";
 import Loading from "../components/Loading";
 import React, { useCallback, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axiosConfig from "../utils/axios";
-import {
-  snackBarMessageError,
-} from "../redux/snackbar/snackBarSlice";
+import { snackBarMessageError } from "../redux/snackbar/snackBarSlice";
 
 export default function Workouts() {
   const axiosInterceptor = axiosConfig();
@@ -19,7 +17,6 @@ export default function Workouts() {
         withCredentials: true,
       });
       setSets(response.data);
-
     } catch (e) {
       dispatch(snackBarMessageError(e.response.data.error));
     }
@@ -44,8 +41,8 @@ export default function Workouts() {
           marginTop: "40px",
         }}
       >
-          <CssBaseline />
-          <Calendar sets={sets} sx={{ width: "100%"}} />
+        <CssBaseline />
+        <Calendar sets={sets} sx={{ width: "100%" }} />
       </Box>
     </Box>
   );

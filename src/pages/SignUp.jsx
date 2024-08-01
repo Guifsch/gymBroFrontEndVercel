@@ -2,14 +2,14 @@ import {
   Button,
   Box,
   TextField,
-  Container,
   CardMedia,
   IconButton,
   Typography,
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
-import backgroundImage from "../assets/login_background_images/gym_background.jpg";
+import EmailIcon from '@mui/icons-material/Email';
+import backgroundImage from "../assets/login_background_images/background-circle.png";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import axiosConfig from "../utils/axios";
 import React, { useState } from "react";
@@ -53,7 +53,10 @@ function Signup() {
   };
 
   return (
-    <Box className="flex justify-center items-center h-screen bg-slate-200">
+    <Box
+      className="flex justify-center items-center h-screen bg-slate-200"
+      sx={{ background: "-webkit-linear-gradient(bottom, #621c67, #250039)" }}
+    >
       <CardMedia
         className=""
         sx={{
@@ -80,7 +83,7 @@ function Signup() {
           margin: "25px",
           position: "relative",
           boxShadow: "5px 5px 15px 1px",
-          borderRadius: "5%",
+          borderRadius: "3px",
           width: "450px",
           overflow: "overlay",
           height: "600px",
@@ -108,98 +111,110 @@ function Signup() {
         >
           <KeyboardBackspaceIcon fontSize="inherit" />
         </IconButton>
-        <Typography variant="h4" textAlign="center">
+        <Typography variant="h4" textAlign="center" sx={{ fontWeight: "bold" }}>
           Registre-se!
         </Typography>
-        <Container
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            mt: 3,
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "center",
-            }}
-          >
-            <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              onChange={handleChange}
-              type="username"
-              required
-              id="username"
-              label="Nome"
-              variant="standard"
-              autoComplete="on"
-            />
-          </Box>
-        </Container>
-        <Container
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            mt: 3,
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "center",
-            }}
-          >
-            <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              onChange={handleChange}
-              type="email"
-              required
-              id="email"
-              label="Email"
-              variant="standard"
-              autoComplete="on"
-            />
-          </Box>
-        </Container>
-        <Container
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            mt: 3,
-          }}
-        >
-          <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-            <LockIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField
-              onChange={handleChange}
-              type="password"
-              required
-              id="password"
-              label="Senha"
-              variant="standard"
-              autoComplete="off"
-            />
-          </Box>
-        </Container>
 
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            mt: 3,
+            width: "80%",
+          }}
+        >
+          <AccountCircle
+            sx={{
+              color: "action.active",
+              mr: 1,
+              my: 0.5,
+              width: "1.3em",
+              height: "1.3em",
+            }}
+          />
+          <TextField
+            onChange={handleChange}
+            type="username"
+            id="username"
+            label="Nome"
+            variant="filled"
+            autoComplete="on"
+            sx={{ width: "100%" }}
+          />
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            mt: 3,
+            width: "80%",
+          }}
+        >
+          <EmailIcon
+            sx={{
+              color: "action.active",
+              mr: 1,
+              my: 0.5,
+              width: "1.3em",
+              height: "1.3em",
+            }}
+          />
+          <TextField
+            onChange={handleChange}
+            type="email"
+            id="email"
+            label="Email"
+            variant="filled"
+            autoComplete="on"
+            sx={{ width: "100%" }}
+          />
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            mt: 3,
+            width: "80%",
+          }}
+        >
+          <LockIcon
+            sx={{
+              color: "action.active",
+              mr: 1,
+              my: 0.5,
+              width: "1.3em",
+              height: "1.3em",
+            }}
+          />
+          <TextField
+            onChange={handleChange}
+            type="password"
+            id="password"
+            label="Senha"
+            variant="filled"
+            autoComplete="on"
+            sx={{ width: "100%" }}
+          />
+        </Box>
         <Button
           sx={{
             mt: 5,
-            mb: 3,
+            width: "80%",
+            height: "50px",
+            backgroundColor: "#491290",
           }}
           variant="contained"
           type="submit"
         >
           Registrar
         </Button>
-        <div className="text-sm font-medium text-gray-900 dark:text-gray-300">
-          ou conecte com o Google
-        </div>
+
+        <Box sx={{ paddingTop: "30px" }}>ou conecte com o Google</Box>
         <OAuth></OAuth>
       </Box>
     </Box>
