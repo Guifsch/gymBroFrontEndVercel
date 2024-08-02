@@ -290,10 +290,9 @@ export default function ModalWorkoutCategory({
                       width: "80%",
                       my: "10px",
                       "& input": {
-                        height: "50px",
-                        padding: 0,
+                        padding: '24px 10px 3px 13px',
                       },
-
+                      "& .MuiInputLabel-shrink": {top: '-3px'},
                       "@media (max-width:600px)": {
                         marginRight: "0",
                         marginLeft: "16px",
