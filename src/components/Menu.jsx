@@ -202,7 +202,7 @@ export default function Header() {
               variant="h5"
               noWrap
               component="div"
-              sx={{ display: "flex", mr: 8 }}
+              sx={{ display: "flex", mr: 8, fontWeight: "bold" }}
             >
               Menu
             </Typography>
@@ -221,7 +221,6 @@ export default function Header() {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    {/* <HomeIcon /> */}
                     <CardMedia
                       sx={{
                         width: "1em",
@@ -233,7 +232,12 @@ export default function Header() {
                       image={gymBroLogoSvg}
                     />
                   </ListItemIcon>
-                  <ListItemText>Adicionar Treino</ListItemText>
+
+                  <ListItemText>
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Adicionar Treino
+                    </Typography>
+                  </ListItemText>
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -245,9 +249,9 @@ export default function Header() {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <HomeIcon />
+                    <HomeIcon sx={{color: '#491290'}}/>
                   </ListItemIcon>
-                  <ListItemText>Home</ListItemText>
+                  <Typography sx={{ fontWeight: "bold" }}>Home</Typography>
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -256,9 +260,11 @@ export default function Header() {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <AccountCircleIcon />
+                    <AccountCircleIcon sx={{color: '#ff6f00'}} />
                   </ListItemIcon>
-                  <ListItemText>Perfil</ListItemText>
+                  <ListItemText>
+                    <Typography sx={{ fontWeight: "bold" }}>Perfil</Typography>
+                  </ListItemText>
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -266,9 +272,11 @@ export default function Header() {
             <ListItem disablePadding>
               <ListItemButton onClick={handleSignOut}>
                 <ListItemIcon>
-                  <ExitToAppIcon />
+                  <ExitToAppIcon sx={{color: 'red'}} />
                 </ListItemIcon>
-                <ListItemText>Sair</ListItemText>
+                <ListItemText>
+                  <Typography sx={{ fontWeight: "bold" }}>Sair</Typography>
+                </ListItemText>
               </ListItemButton>
             </ListItem>
           </List>
