@@ -43,6 +43,10 @@ const style = {
   boxShadow: 24,
   minWidth: "800px",
   maxHeight: "500px",
+  "@media (max-width:800px)": {
+    width: "100%",
+    minWidth: 0,
+  },
   "@media (max-height:500px)": {
     maxHeight: "400px",
     pb: 3,
@@ -693,9 +697,11 @@ const Calendar = ({ sets }) => {
                 alignItems: "center",
               }}
             >
-              {image && (
+              {/* {image && (
                 <>
-                  <Button onClick={handleGoBack}>Voltar</Button>
+
+                
+                  <Button onClick={handleGoBack}>VoltarRRRRR</Button>
                   <CardMedia
                     component="img"
                     sx={{
@@ -708,7 +714,7 @@ const Calendar = ({ sets }) => {
                     image={image}
                   />
                 </>
-              )}
+              )} */}
               {draggableShowContent && (
                 <>
                   <Typography
@@ -735,7 +741,7 @@ const Calendar = ({ sets }) => {
                       }}
                     />
                   ) : (
-                    <div>teste</div>
+                    false
                   )}
 
                   {/* Agrupe os itens por categoria */}
@@ -836,14 +842,14 @@ const Calendar = ({ sets }) => {
                             )}
 
                             {item.exercisePicture ? (
-                              <Button
-                                onClick={() => {
-                                  handleSetImage(item.exercisePicture);
-                                }}
-                                variant="contained"
-                              >
-                                <b>Imagem</b>
-                              </Button>
+                               <CustomaizedButton
+                               onClick={() => {
+                                 handleSetImage(item.exercisePicture);
+                               }}
+                               color="#491290"
+                               text="Imagem"
+                               margin="5px 0 0 0"
+                             />
                             ) : (
                               false
                             )}
@@ -866,7 +872,12 @@ const Calendar = ({ sets }) => {
             >
               {image && (
                 <>
-                  <Button onClick={handleGoBack}>Voltar</Button>
+                  <CustomaizedButton
+                    onClick={handleGoBack}
+                    color="#3a9906"
+                    text="Voltar"
+                    margin="20px"
+                  />
 
                   <ImageWithPlaceholder
                     src={image}
@@ -1023,14 +1034,14 @@ const Calendar = ({ sets }) => {
                             )}
 
                             {item.exercisePicture ? (
-                              <Button
+                              <CustomaizedButton
                                 onClick={() => {
                                   handleSetImage(item.exercisePicture);
                                 }}
-                                variant="contained"
-                              >
-                                <b>Imagem</b>
-                              </Button>
+                                color="#491290"
+                                text="Imagem"
+                                margin="5px 0 0 0"
+                              />
                             ) : (
                               false
                             )}
