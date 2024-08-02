@@ -76,6 +76,7 @@ export default function ModalWorkoutSerie({
   const [loading, setLoading] = useState(false);
   const [textColor, setTextColor] = useState("#ffffff");
   const [cardColor, setCardColor] = useState("#000000");
+  const [filterText, setFilterText] = useState("");
   const [formValues, setFormValues] = useState({
     name: "",
     comment: "",
@@ -85,6 +86,24 @@ export default function ModalWorkoutSerie({
   });
   const dispatch = useDispatch();
   const axiosInterceptor = axiosConfig(); // Configuração do axios para fazer requisições
+
+  const filteredWorkouts = Object.keys(groupedWorkouts).reduce((result, category) => {
+    const lowerCaseFilter = filterText.toLowerCase();
+
+    // Verifica se o texto do filtro corresponde à categoria
+    if (category.toLowerCase().includes(lowerCaseFilter)) {
+      result[category] = groupedWorkouts[category]; // Exibe todos os treinos da categoria
+    } else {
+      // Filtra os treinos que correspondem ao texto do filtro
+      const filteredItems = groupedWorkouts[category].filter(workout =>
+        workout.name.toLowerCase().includes(lowerCaseFilter)
+      );
+      if (filteredItems.length > 0) {
+        result[category] = filteredItems;
+      }
+    }
+    return result;
+  }, {});
 
   useEffect(() => {
     try {
@@ -320,6 +339,16 @@ export default function ModalWorkoutSerie({
                     </Box>
                   )}
                 >
+                  {/* Campo de entrada para o filtro */}
+                  <Box sx={{ padding: "8px" }}>
+                    <TextField
+                      value={filterText}
+                      onChange={(e) => setFilterText(e.target.value)}
+                      placeholder="Filtrar treinos..."
+                      fullWidth
+                    />
+                  </Box>
+
                   <Box sx={{ overflow: "scroll", height: "250px" }}>
                     <MenuItem
                       value=""
@@ -327,7 +356,7 @@ export default function ModalWorkoutSerie({
                     >
                       <ListItemText primary="Nenhum" />
                     </MenuItem>
-                    {Object.keys(groupedWorkouts).map((category) => (
+                    {Object.keys(filteredWorkouts).map((category) => (
                       <div key={category}>
                         <ListSubheader
                           sx={{
@@ -341,7 +370,7 @@ export default function ModalWorkoutSerie({
                         >
                           {category}
                         </ListSubheader>
-                        {groupedWorkouts[category].map((workout) => (
+                        {filteredWorkouts[category].map((workout) => (
                           <MenuItem
                             key={workout._id}
                             value={workout._id}
