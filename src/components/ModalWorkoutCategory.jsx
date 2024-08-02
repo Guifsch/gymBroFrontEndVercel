@@ -25,7 +25,8 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 600,
-  height: 700,
+  height: "auto",
+  maxHeight: 700,
   borderRadius: "5px",
   bgcolor: "background.paper",
   border: "2px solid #000",
@@ -33,7 +34,6 @@ const style = {
   overflow: "overlay",
   "@media (max-width:600px)": {
     width: "100%",
-    height: "auto",
     maxHeight: "520px",
   },
   "@media (max-height:700px)": {
@@ -167,7 +167,10 @@ export default function ModalWorkoutCategory({
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       open={open}
-      onClose={handleClose}
+      onClose={() => {
+        handleClose();
+        setFields([]);
+      }}
       closeAfterTransition
       slots={{ backdrop: Backdrop }}
       slotProps={{
@@ -179,7 +182,10 @@ export default function ModalWorkoutCategory({
     >
       <Box sx={style}>
         <IconButton
-          onClick={handleClose}
+          onClick={() => {
+            handleClose();
+            setFields([]);
+          }}
           size="large"
           sx={{
             position: "absolute",
@@ -290,9 +296,9 @@ export default function ModalWorkoutCategory({
                       width: "80%",
                       my: "10px",
                       "& input": {
-                        padding: '24px 10px 3px 13px',
+                        padding: "24px 10px 3px 13px",
                       },
-                      "& .MuiInputLabel-shrink": {top: '-3px'},
+                      "& .MuiInputLabel-shrink": { top: "-3px" },
                       "@media (max-width:600px)": {
                         marginRight: "0",
                         marginLeft: "16px",
