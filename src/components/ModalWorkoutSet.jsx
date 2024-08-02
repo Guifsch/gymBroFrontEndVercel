@@ -340,7 +340,7 @@ export default function ModalWorkoutSerie({
                   )}
                 >
                   {/* Campo de entrada para o filtro */}
-                  <Box sx={{ padding: "8px" }}>
+                  <Box sx={{ p: "8px" }}>
                     <TextField
                       value={filterText}
                       onChange={(e) => setFilterText(e.target.value)}
@@ -349,7 +349,7 @@ export default function ModalWorkoutSerie({
                     />
                   </Box>
 
-                  <Box sx={{ overflow: "scroll", height: "250px" }}>
+                  <Box sx={{ overflow: "overlay", height: "250px" }}>
                     <MenuItem
                       value=""
                       onClick={() => setSelectedItems([])} // Limpa todos os itens selecionados
