@@ -325,7 +325,9 @@ export default function Workouts() {
             />
           </TabList>
         </Box>
-        <TabPanel value="1" sx={{ width: "100%", maxWidth: "1200px" }}>
+        <TabPanel value="1" sx={{ width: "100%", maxWidth: "1200px",  "@media (max-width:500px)": {
+                p:"24px 0 0 0",
+              }, }}>
           <Container
             sx={{
               display: "flex",
@@ -366,7 +368,7 @@ export default function Workouts() {
               py: 5,
               width: "100%",
               "@media (max-width:500px)": {
-                p: 3,
+                p: '20x 0 0 0',
               },
             }}
           >

@@ -340,7 +340,7 @@ export default function ModalWorkoutSerie({
                   )}
                 >
                   {/* Campo de entrada para o filtro */}
-                  <Box sx={{ p: "8px" }}>
+                  <Box sx={{ padding: "8px" }}>
                     <TextField
                       value={filterText}
                       onChange={(e) => setFilterText(e.target.value)}

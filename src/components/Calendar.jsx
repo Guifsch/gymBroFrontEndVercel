@@ -697,24 +697,6 @@ const Calendar = ({ sets }) => {
                 alignItems: "center",
               }}
             >
-              {/* {image && (
-                <>
-
-                
-                  <Button onClick={handleGoBack}>VoltarRRRRR</Button>
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      objectFit: "contain",
-                      maxHeight: "500px",
-                      maxWidth: "500px",
-                      height: "100%",
-                      width: "100%",
-                    }}
-                    image={image}
-                  />
-                </>
-              )} */}
               {draggableShowContent && (
                 <>
                   <Typography
