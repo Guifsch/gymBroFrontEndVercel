@@ -1,10 +1,8 @@
 import {
   Box,
-  Container,
   Modal,
   IconButton,
   Typography,
-  Button,
   CardMedia,
   TextField,
   Backdrop,
@@ -20,7 +18,7 @@ import {
   snackBarMessageSuccess,
   snackBarMessageError,
 } from "../redux/snackbar/snackBarSlice";
-
+import { useNavigate } from "react-router-dom";
 import CustomaizedButton from "../components/Button";
 import { validateInputPost } from "../utils/validateInputPost";
 import { useSelector, useDispatch } from "react-redux";
@@ -54,15 +52,12 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   maxWidth: 1000,
-  maxHeight: 550,
+  maxHeight: 650,
   height: "100%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   overflowY: "overlay",
   boxShadow: 24,
-  "@media (max-width:1200px)": {
-    maxHeight: 550,
-  },
   "@media (max-width:600px)": {
     width: " 100%",
   },
@@ -79,9 +74,11 @@ export default function ModalWorkout({
   modalImageShow,
   refreshModalRefCategory,
   categoryInputClean,
+  calendarWorkoutUpdate,
 }) {
   const axiosInterceptor = axiosConfig();
   const dispatch = useDispatch();
+  let history = useNavigate();
   const [content, setContent] = useState({
     name: "",
     rep: "",
@@ -401,11 +398,27 @@ export default function ModalWorkout({
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "flex-start",
               height: "100%",
               padding: "40px 40px 0 40px",
             }}
           >
+            <Box
+              sx={{
+                width: "100%",
+                margin: "10px 0 27px 0",
+              }}
+            >
+              {calendarWorkoutUpdate ? (
+                <CustomaizedButton
+                  onClick={() => history(-1)}
+                  color="#ff6f00"
+                  text=" Voltar"
+                />
+              ) : (
+                false
+              )}
+            </Box>
             <Box
               sx={{
                 "&:hover > svg": {

@@ -13,11 +13,12 @@ import {
   Button,
   Modal,
   TextField,
-  CardMedia,
   Paper,
+  Divider,
 } from "@mui/material";
 import CustomaizedButton from "./Button";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 import ptBrLocale from "@fullcalendar/core/locales/pt-br";
 import ImageWithPlaceholder from "../utils/imagePlaceHolderUntilLoad";
 import axiosConfig from "../utils/axios";
@@ -80,6 +81,7 @@ const style2 = {
 const Calendar = ({ sets }) => {
   const calendarRef = useRef(null);
   const dispatch = useDispatch();
+  let history = useNavigate();
   const axiosInterceptor = axiosConfig();
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -211,6 +213,7 @@ const Calendar = ({ sets }) => {
   };
 
   const handleEventClick = (info) => {
+    console.log(info, "INFOO");
     setSelectedEvent(info.event);
     setOpenModal(true);
   };
@@ -303,8 +306,21 @@ const Calendar = ({ sets }) => {
     setCalendarEvents([]);
   };
 
+  const editWorkout = (workout) => {
+    history(`/workouts?workoutId=${workout._id}`);
+  };
+
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", p: 2, width: "100%" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        "@media (max-width:600px)": {
+          p: "16px 0 0 0",
+        },
+      }}
+    >
       <Box
         sx={{
           display: "flex",
@@ -535,6 +551,9 @@ const Calendar = ({ sets }) => {
           justifyContent: "space-between",
           p: 2,
           overflow: "overlay",
+          "@media (max-width:1000px)": {
+            padding: " 16px 0 5% 0",
+          },
           "@media (max-width:1200px)": {
             flexDirection: "column",
           },
@@ -599,8 +618,11 @@ const Calendar = ({ sets }) => {
         <Box
           sx={{
             flex: 1,
-            ml: 2,
-            "@media (max-width:650px)": {
+            ml: 3,
+            "@media (max-width:1200px)": {
+              m: 0,
+            },
+            "@media (max-width:1000px)": {
               "& .fc-toolbar": { flexDirection: "column" },
               "& .fc-toolbar-title": { mb: 1 },
             },
@@ -765,9 +787,18 @@ const Calendar = ({ sets }) => {
                               flexDirection: "column",
                               "@media (max-width:600px)": {
                                 width: "100%",
+                                mb: "40px",
                               },
                             }}
                           >
+                            <CustomaizedButton
+                              onClick={() => {
+                                editWorkout(item);
+                              }}
+                              color="#491290"
+                              text="Editar"
+                              margin="0 0 20px 0"
+                            />
                             <TextField
                               value={item.name}
                               label="Exercício"
@@ -775,6 +806,7 @@ const Calendar = ({ sets }) => {
                               sx={{
                                 marginY: "3%",
                                 "& > label": { fontWeight: "bold" },
+                                "& input": { fontWeight: "bold" },
                               }}
                             />
                             <TextField
@@ -824,19 +856,36 @@ const Calendar = ({ sets }) => {
                             )}
 
                             {item.exercisePicture ? (
-                               <CustomaizedButton
-                               onClick={() => {
-                                 handleSetImage(item.exercisePicture);
-                               }}
-                               color="#491290"
-                               text="Imagem"
-                               margin="5px 0 0 0"
-                             />
+                              <CustomaizedButton
+                                onClick={() => {
+                                  handleSetImage(item.exercisePicture);
+                                }}
+                                color="#ff6f00"
+                                text="Imagem"
+                                margin="5px 0 0 0"
+                              />
                             ) : (
                               false
                             )}
+                            <Box
+                              sx={{
+                                position: "relative",
+                                display: "none",
+                                top: "22px",
+                                "@media (max-width:600px)": {
+                                  display: "block",
+                                },
+                              }}
+                            >
+                              <Divider
+                                sx={{ borderColor: "rgb(0 0 0 / 45%)" }}
+                              />
+                            </Box>
                           </Box>
                         ))}
+                      </Box>
+                      <Box sx={{ position: "relative", top: "20px" }}>
+                        <Divider sx={{ borderColor: "rgb(0 0 0 / 45%)" }} />
                       </Box>
                     </Box>
                   ))}
@@ -856,7 +905,7 @@ const Calendar = ({ sets }) => {
                 <>
                   <CustomaizedButton
                     onClick={handleGoBack}
-                    color="#3a9906"
+                    color="#491290"
                     text="Voltar"
                     margin="20px"
                   />
@@ -956,10 +1005,19 @@ const Calendar = ({ sets }) => {
                               flexWrap: "wrap",
                               flexDirection: "column",
                               "@media (max-width:600px)": {
+                                marginBottom: "50px",
                                 width: "100%",
                               },
                             }}
                           >
+                            <CustomaizedButton
+                              onClick={() => {
+                                editWorkout(item);
+                              }}
+                              color="#491290"
+                              text="Editar"
+                              margin="0 0 20px 0"
+                            />
                             <TextField
                               value={item.name}
                               label="Exercício"
@@ -967,6 +1025,7 @@ const Calendar = ({ sets }) => {
                               sx={{
                                 marginY: "3%",
                                 "& > label": { fontWeight: "bold" },
+                                "& input": { fontWeight: "bold" },
                               }}
                             />
                             <TextField
@@ -1020,7 +1079,7 @@ const Calendar = ({ sets }) => {
                                 onClick={() => {
                                   handleSetImage(item.exercisePicture);
                                 }}
-                                color="#491290"
+                                color="#ff6f00"
                                 text="Imagem"
                                 margin="5px 0 0 0"
                               />

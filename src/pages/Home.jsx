@@ -39,6 +39,9 @@ export default function Workouts() {
           width: "100%",
           maxWidth: "1200px",
           marginTop: "40px",
+          "@media (max-width:1000px)": {
+            mt: '10px'
+          },
         }}
       >
         <CssBaseline />

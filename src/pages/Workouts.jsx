@@ -6,7 +6,9 @@ import {
 import axiosConfig from "../utils/axios";
 import ModalWorkout from "../components/ModalWorkout";
 import WorkoutSet from "../components/WorkoutSet";
+import ConfirmButtom from "../components/Confirm";
 import GenericImage from "../assets/generic-image.png";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import ImageWithPlaceholder from "../utils/imagePlaceHolderUntilLoad";
 import ModalWorkoutCategory from "../components/ModalWorkoutCategory";
 import { Tab, IconButton, Box, Container } from "@mui/material";
@@ -29,7 +31,10 @@ import { app } from "../firebase";
 
 export default function Workouts() {
   const axiosInterceptor = axiosConfig();
+  const [searchParams] = useSearchParams();
+  const workoutId = searchParams.get("workoutId");
   const dispatch = useDispatch();
+  let history = useNavigate();
   const [valueTab, setValueTab] = React.useState("1");
   const [modalWorkoutCategoryRefreshRef, setModalWorkoutCategoryRefreshRef] =
     React.useState(1);
@@ -37,6 +42,7 @@ export default function Workouts() {
   const [openCategoryModal, setOpenCategoryModal] = React.useState(false);
   const [categoryInputClean, setCategoryInputClean] = React.useState(1);
   const [imageTableShow, setImageTableShow] = useState(undefined);
+  const [calendarWorkoutUpdate, setCalendarWorkoutUpdate] = React.useState(false);
   const [modalContentUpdate, setModalContentUpdate] = useState({
     name: "",
     rep: "",
@@ -47,6 +53,8 @@ export default function Workouts() {
     category: [],
   });
   const [workouts, setWorkouts] = useState([]);
+  const [deleteBurronRef, setDeleteBurronRef] = useState({});
+    const [confirmDelete, setConfirmDelete] = useState(false);
   const [getWorkoutRefUpdate, setGetWorkoutRefUpdate] = useState(1);
 
   const handleChangeTab = (event, newValue) => {
@@ -60,6 +68,21 @@ export default function Workouts() {
         withCredentials: true,
       });
       setWorkouts(response.data.workouts);
+    } catch (e) {
+      dispatch(snackBarMessageError(e.response.data.error));
+    } finally {
+      dispatch(loadingFalse());
+    }
+  }, []);
+
+  const getWorkoutForUpdate = useCallback(async (workoutId) => {
+    dispatch(loadingTrue());
+    try {
+      const response = await axiosInterceptor.get(`/api/workout/workout/${workoutId}`, {
+        withCredentials: true,
+      });
+      handleOpenUpdate(response.data.workout)
+      setCalendarWorkoutUpdate(true)
     } catch (e) {
       dispatch(snackBarMessageError(e.response.data.error));
     } finally {
@@ -81,6 +104,13 @@ export default function Workouts() {
     getWorkoutRef();
     getWorkout();
   }, [getWorkout, getWorkoutRefUpdate]);
+
+  useEffect(() => {
+    if (workoutId) {
+      getWorkoutForUpdate(workoutId)
+      history('/workouts', { replace: true });
+    }
+  }, [workoutId]);
 
   //--------------------------------------
   const columns = useMemo(
@@ -186,7 +216,8 @@ export default function Workouts() {
             </IconButton>
             <IconButton
               sx={{ borderRadius: 0 }}
-              onClick={() => handleDeleteExercisePicture(row.original)}
+              // onClick={() => handleDeleteExercisePicture(row.original)}
+              onClick={() => handleConfirmOpen(row.original)}
             >
               <DeleteIcon />
             </IconButton>
@@ -256,9 +287,12 @@ export default function Workouts() {
     }
   };
 
-  const handleOpenUpdate = (e) => {
-    setModalContentUpdate(e);
-    setOpenWorkoutModal(true);
+  const handleOpenUpdate = (e, e2) => {
+    if (e) {
+      setModalContentUpdate(e);
+      setOpenWorkoutModal(true);
+    }
+
   };
 
   const handleOpenWorkoutModal = () => {
@@ -266,6 +300,7 @@ export default function Workouts() {
   };
 
   const handleCloseWorkoutModal = () => {
+    setCalendarWorkoutUpdate(false)
     setOpenWorkoutModal(false);
     setCategoryInputClean((prevCount) => prevCount + 1);
     setModalContentUpdate({
@@ -299,6 +334,20 @@ export default function Workouts() {
     setOpenCategoryModal(false);
   };
 
+  const handleConfirmOpen = (e) => {
+    setDeleteBurronRef(e)
+    setConfirmDelete(true);
+  };
+
+  const handleConfirmClose = () => {
+    setConfirmDelete(false);
+  };
+
+  const handleConfirmDelete = () => {
+    setConfirmDelete(false);
+    handleDeleteExercisePicture(deleteBurronRef)
+  };
+
   return (
     <Box className="flex flex-col justify-initial items-center pageMarginTopNavFix">
       <Loading top="64px" />
@@ -325,9 +374,16 @@ export default function Workouts() {
             />
           </TabList>
         </Box>
-        <TabPanel value="1" sx={{ width: "100%", maxWidth: "1200px",  "@media (max-width:500px)": {
-                p:"24px 0 0 0",
-              }, }}>
+        <TabPanel
+          value="1"
+          sx={{
+            width: "100%",
+            maxWidth: "1200px",
+            "@media (max-width:500px)": {
+              p: "24px 0 0 0",
+            },
+          }}
+        >
           <Container
             sx={{
               display: "flex",
@@ -368,7 +424,7 @@ export default function Workouts() {
               py: 5,
               width: "100%",
               "@media (max-width:500px)": {
-                p: '20x 0 0 0',
+                p: "20x 0 0 0",
               },
             }}
           >
@@ -391,8 +447,15 @@ export default function Workouts() {
         getWorkoutRef={getWorkoutRef}
         modalContentUpdate={modalContentUpdate}
         modalImageShow={imageTableShow}
+        calendarWorkoutUpdate={calendarWorkoutUpdate}
         refreshModalRefCategory={modalWorkoutCategoryRefreshRef}
         categoryInputClean={categoryInputClean}
+      />
+         <ConfirmButtom
+        text="Tem certeza que deseja excluir?"
+        confirmDeleteOpen={confirmDelete}
+        handleConfirmClose={handleConfirmClose}
+        handleConfirmDelete={handleConfirmDelete}
       />
     </Box>
   );

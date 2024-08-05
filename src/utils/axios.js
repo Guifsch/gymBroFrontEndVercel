@@ -21,17 +21,14 @@ const axiosConfig = () => {
 
   axiosClient.interceptors.request.use(
     (config) => {
-      console.log(config, "interceptor response Response");
       return config;
     },
     (error) => {
-      console.log(error);
       Promise.reject(error);
     }
   );
   axiosClient.interceptors.response.use(
     (response) => {
-      console.log(response, "interceptor request Config");
       return response;
     },
     (error) => {
@@ -46,12 +43,11 @@ const axiosConfig = () => {
         error.response.data.error === "Você não está autentificado!"
       ) {
         dispatch(snackBarMessageError(error.response.data.error));
-        console.log(error, "interceptor response Error");
+
         history("/");
 
         dispatch(signOut());
       }
-      console.log(error, "interceptor request Error");
       return Promise.reject(error);
     }
   );

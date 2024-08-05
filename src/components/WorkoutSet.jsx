@@ -4,15 +4,18 @@ import {
   snackBarMessageError,
 } from "../redux/snackbar/snackBarSlice";
 import CustomaizedButton from "../components/Button";
-import { Container, Box, Typography, Button } from "@mui/material";
+import { Container, Box, Typography} from "@mui/material";
 import { useDispatch } from "react-redux";
 import React, { useCallback, useState, useEffect } from "react";
 import axiosConfig from "../utils/axios";
+import ConfirmButtom from "../components/Confirm";
 import { loadingTrue, loadingFalse } from "../redux/loading/loadingSlice";
 
 export default function Workouts() {
   const axiosInterceptor = axiosConfig();
   const dispatch = useDispatch();
+  const [deleteBurronRef, setDeleteBurronRef] = useState({});
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const [openSerieModal, setOpenSerieModal] = React.useState(false);
   const [modalContentUpdate, setModalContentUpdate] = useState({
     name: "",
@@ -80,6 +83,20 @@ export default function Workouts() {
     setOpenSerieModal(false);
   };
 
+  const handleConfirmOpen = (e) => {
+    setDeleteBurronRef(e)
+    setConfirmDelete(true);
+  };
+
+  const handleConfirmClose = () => {
+    setConfirmDelete(false);
+  };
+
+  const handleConfirmDelete = () => {
+    setConfirmDelete(false);
+    deleteSet(deleteBurronRef)
+  };
+
   return (
     <Box className="flex flex-col justify-initial items-center">
       <CustomaizedButton
@@ -134,7 +151,7 @@ export default function Workouts() {
             >
               <Box sx={{ mb: 1 }}>
                 <CustomaizedButton
-                  onClick={() => deleteSet(item)}
+                  onClick={() => handleConfirmOpen(item)}
                   color="#bb0000"
                   text="Deletar"
                 />
@@ -183,6 +200,12 @@ export default function Workouts() {
         handleCloseSerieModal={handleCloseSerieModal}
         modalContentUpdate={modalContentUpdate}
         modalSetRefreshRef={modalSetRefreshRef}
+      />
+      <ConfirmButtom
+        text="Tem certeza que deseja deletar?"
+        confirmDeleteOpen={confirmDelete}
+        handleConfirmClose={handleConfirmClose}
+        handleConfirmDelete={handleConfirmDelete}
       />
     </Box>
   );

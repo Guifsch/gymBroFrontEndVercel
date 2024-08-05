@@ -1,8 +1,13 @@
 import { React, useRef, useState, useEffect, useCallback } from "react";
-import { Button, TextField, Box, Container, Typography } from "@mui/material";
+import { TextField, Box, Typography } from "@mui/material";
+import ConfirmButtom from "../components/Confirm";
 import { useSelector, useDispatch } from "react-redux";
 import axiosConfig from "../utils/axios";
-import { deleteUserSuccess, updateUserSuccess } from "../redux/user/userSlice";
+import {
+  deleteUserSuccess,
+  updateUserSuccess,
+  signOut,
+} from "../redux/user/userSlice";
 import {
   snackBarMessageSuccess,
   snackBarMessageError,
@@ -33,6 +38,8 @@ function Profile() {
   // --FIREBASE STORAGE--
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreviewImage] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
   const fileRef = useRef(null);
   const [formData, setFormData] = useState({
     username: "",
@@ -130,6 +137,20 @@ function Profile() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  const handleConfirmOpen = () => {
+    setConfirmDelete(true);
+  };
+
+  const handleConfirmClose = () => {
+    setConfirmDelete(false);
+  };
+
+  const handleConfirmDelete = () => {
+    setConfirmDelete(false);
+    dispatch(signOut());
+    handleDeleteAccount();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(loadingTrue());
@@ -162,9 +183,8 @@ function Profile() {
   };
 
   const handleDeleteAccount = async (e) => {
-    e.preventDefault();
     try {
-      await removeImageFirebase(formData.profilePicture);
+      // await removeImageFirebase(formData.profilePicture);
       const response = await axiosInterceptor.delete(
         `/api/user/delete/${currentUser._id}`,
         { withCredentials: true }
@@ -355,7 +375,7 @@ function Profile() {
         </Box>
 
         <CustomaizedButton
-          onClick={handleDeleteAccount}
+          type="submit"
           color="#3a9906"
           text="Atualizar"
           width="80%"
@@ -364,7 +384,7 @@ function Profile() {
         />
 
         <CustomaizedButton
-          onClick={handleDeleteAccount}
+          onClick={handleConfirmOpen}
           color="#bb0000"
           text="Excluir"
           width="80%"
@@ -372,6 +392,12 @@ function Profile() {
           margin="24px 0 20px 0"
         />
       </Box>
+      <ConfirmButtom
+        text="Tem certeza que deseja excluir?"
+        confirmDeleteOpen={confirmDelete}
+        handleConfirmClose={handleConfirmClose}
+        handleConfirmDelete={handleConfirmDelete}
+      />
     </Box>
   );
 }
