@@ -152,7 +152,6 @@ function ForgotPassword() {
           margin="30px 0 0 0"
           type="submit"
         />
-        +
       </Box>
     </Box>
   );
