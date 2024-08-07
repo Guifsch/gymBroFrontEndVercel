@@ -213,7 +213,6 @@ const Calendar = ({ sets }) => {
   };
 
   const handleEventClick = (info) => {
-    console.log(info, "INFOO");
     setSelectedEvent(info.event);
     setOpenModal(true);
   };
@@ -951,6 +950,7 @@ const Calendar = ({ sets }) => {
                       id="comment"
                       label="Comentário"
                       type="comment"
+                      multiline
                       value={selectedEvent.extendedProps.comment}
                       maxRows={4}
                       sx={{
