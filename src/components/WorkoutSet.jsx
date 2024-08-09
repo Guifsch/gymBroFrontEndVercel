@@ -147,6 +147,9 @@ export default function Workouts() {
                 "@media (max-width:1000px)": {
                   width: "200px",
                 },
+                "@media (max-width:500px)": {
+                  width: "100%",
+                },
               }}
             >
               <Box sx={{ mb: 1 }}>
@@ -168,6 +171,9 @@ export default function Workouts() {
                   flexDirection: "column",
                   wordBreak: "break-word",
                   cursor: "pointer",
+                  "@media (max-width:500px)": {
+                    minHeight: '150px'
+                  },
                 }}
               >
                 <Typography

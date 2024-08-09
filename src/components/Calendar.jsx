@@ -624,6 +624,8 @@ const Calendar = ({ sets }) => {
             "@media (max-width:1000px)": {
               "& .fc-toolbar": { flexDirection: "column" },
               "& .fc-toolbar-title": { mb: 1 },
+              "& .fc-view-harness": { overflow: 'auto'},
+              
             },
           }}
         >
@@ -1128,7 +1130,7 @@ const Calendar = ({ sets }) => {
                 background: "#3788d8",
                 color: "white",
                 marginBottom: "20px",
-                wordBreak: "break-all",
+                wordBreak: "auto-phrase",
                 backgroundColor: event.cardColor,
               }}
             >
