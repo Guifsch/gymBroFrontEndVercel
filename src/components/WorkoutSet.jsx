@@ -4,7 +4,7 @@ import {
   snackBarMessageError,
 } from "../redux/snackbar/snackBarSlice";
 import CustomaizedButton from "../components/Button";
-import { Container, Box, Typography} from "@mui/material";
+import { Container, Box, Typography, TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
 import React, { useCallback, useState, useEffect } from "react";
 import axiosConfig from "../utils/axios";
@@ -84,7 +84,7 @@ export default function Workouts() {
   };
 
   const handleConfirmOpen = (e) => {
-    setDeleteBurronRef(e)
+    setDeleteBurronRef(e);
     setConfirmDelete(true);
   };
 
@@ -94,7 +94,7 @@ export default function Workouts() {
 
   const handleConfirmDelete = () => {
     setConfirmDelete(false);
-    deleteSet(deleteBurronRef)
+    deleteSet(deleteBurronRef);
   };
 
   return (
@@ -145,7 +145,7 @@ export default function Workouts() {
                 wordBreak: "break-word",
                 cursor: "pointer",
                 "@media (max-width:1000px)": {
-                  width: "200px",
+                  width: "500px",
                 },
                 "@media (max-width:500px)": {
                   width: "100%",
@@ -172,21 +172,32 @@ export default function Workouts() {
                   wordBreak: "break-word",
                   cursor: "pointer",
                   "@media (max-width:500px)": {
-                    minHeight: '150px'
+                    minHeight: "150px",
                   },
                 }}
               >
                 <Typography
                   type="text"
                   required
-                  variant="h5"
+                  variant="h4"
                   autoComplete="on"
                   marginTop="10px"
                   sx={{ fontWeight: "bold", px: "15px", color: item.textColor }}
                 >
                   {item.name}
                 </Typography>
-                <Typography
+
+                <TextField
+                  multiline
+                  value={item.comment}
+                  sx={{
+                    width: "100%",
+                    "& textarea": { color: item.textColor },
+                    "& fieldset": { border: "none" },
+                  }}
+                />
+
+                {/* <Typography
                   type="text"
                   required
                   variant="standard"
@@ -195,7 +206,7 @@ export default function Workouts() {
                   sx={{ color: item.textColor }}
                 >
                   {item.comment}
-                </Typography>
+                </Typography> */}
               </Container>
             </Box>
           ))}
