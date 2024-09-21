@@ -49,8 +49,8 @@ const style = {
     width: "100%",
     minWidth: 0,
   },
-  "@media (max-height:500px)": {
-    maxHeight: "400px",
+  "@media (max-height:600px)": {
+    maxHeight: "498px",
     pb: 3,
   },
 };
@@ -73,8 +73,8 @@ const style2 = {
     width: "100%",
     minWidth: 0,
   },
-  "@media (max-height:500px)": {
-    maxHeight: "400px",
+  "@media (max-height:600px)": {
+    maxHeight: "498px",
     pb: 3,
   },
 };

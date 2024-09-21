@@ -61,8 +61,8 @@ const style = {
   "@media (max-width:600px)": {
     width: " 100%",
   },
-  "@media (max-height:550px)": {
-    maxHeight: "400px",
+  "@media (max-height:600px)": {
+    maxHeight: "498px",
   },
 };
 

@@ -231,10 +231,10 @@ function Profile() {
           borderRadius: "3px",
           "@media (max-width:450px)": {
             width: "100%",
-            height: "550px", // Ajuste para telas menores
+            height: "550px",
           },
-          "@media (max-height:700px)": {
-            maxHeight: "300px",
+          "@media (max-height:600px)": {
+            maxHeight: "498px",
           },
         }}
       >
