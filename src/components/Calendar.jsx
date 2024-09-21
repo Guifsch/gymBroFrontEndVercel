@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import CustomaizedButton from "./Button";
 import CloseIcon from "@mui/icons-material/Close";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { useNavigate } from "react-router-dom";
 import ptBrLocale from "@fullcalendar/core/locales/pt-br";
 import ImageWithPlaceholder from "../utils/imagePlaceHolderUntilLoad";
@@ -43,7 +44,7 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   minWidth: "800px",
-  maxHeight: "500px",
+  maxHeight: "700px",
   "@media (max-width:800px)": {
     width: "100%",
     minWidth: 0,
@@ -80,6 +81,7 @@ const style2 = {
 
 const Calendar = ({ sets }) => {
   const calendarRef = useRef(null);
+  const eventListRef = useRef(null);
   const dispatch = useDispatch();
   let history = useNavigate();
   const axiosInterceptor = axiosConfig();
@@ -97,6 +99,14 @@ const Calendar = ({ sets }) => {
   const [openToolTip, setOpenToolTip] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [openEventModal, setOpenEventModal] = useState(false);
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  const scrollToTop = () => {
+    if (eventListRef.current) {
+      eventListRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    setShowScrollButton(false);
+  };
 
   useEffect(() => {
     if (sets) {
@@ -624,8 +634,7 @@ const Calendar = ({ sets }) => {
             "@media (max-width:1000px)": {
               "& .fc-toolbar": { flexDirection: "column" },
               "& .fc-toolbar-title": { mb: 1 },
-              "& .fc-view-harness": { overflow: 'auto'},
-              
+              "& .fc-view-harness": { overflow: "auto" },
             },
           }}
         >
@@ -696,7 +705,7 @@ const Calendar = ({ sets }) => {
         open={openModal}
         onClose={handleClose}
       >
-        <Box sx={style}>
+        <Box sx={style} ref={eventListRef}>
           <IconButton
             onClick={handleClose}
             size="large"
@@ -748,7 +757,42 @@ const Calendar = ({ sets }) => {
                   ) : (
                     false
                   )}
-
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "end",
+                      alignItems: "center",
+                      margin: "20px 0",
+                      border: "solid 1px",
+                      borderRadius: "4px",
+                    }}
+                  >
+                    {draggableShowContent.selectedItems.map((item, index) => (
+                      <a
+                        key={index}
+                        href={`#${item.name}`}
+                        onClick={() => setShowScrollButton(true)}
+                      >
+                        <Typography
+                          sx={{
+                            fontSize: "1.2rem",
+                            transition: "0.2s",
+                            padding: "0 10px",
+                            "@media (max-width:800px)": {
+                              fontSize: "1.5rem",
+                            },
+                            "&:hover ": {
+                              backgroundColor: "black",
+                              color: "white",
+                            },
+                          }}
+                        >
+                          {item.name}
+                        </Typography>
+                      </a>
+                    ))}
+                  </Box>
                   {/* Agrupe os itens por categoria */}
                   {Object.entries(
                     draggableShowContent.selectedItems.reduce((acc, item) => {
@@ -778,6 +822,7 @@ const Calendar = ({ sets }) => {
                         {items.map((item, index) => (
                           <Box
                             key={index}
+                            id={item.name}
                             sx={{
                               marginBottom: 2,
                               width: "33.3%",
@@ -933,9 +978,9 @@ const Calendar = ({ sets }) => {
                     variant="contained"
                     onClick={() => handleDeleteEvent(selectedEvent)}
                     sx={{
-                      marginBottom: "20px",
                       backgroundColor: "#bb0000 ",
                       transition: "0.2s",
+                      marginBottom: "20px",
                       "&:hover ": {
                         filter: "brightness(0.8)",
                         boxShadow:
@@ -966,6 +1011,44 @@ const Calendar = ({ sets }) => {
                     false
                   )}
 
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "end",
+                      alignItems: "center",
+                      margin: "20px 0",
+                      border: "solid 1px",
+                      borderRadius: "4px",
+                    }}
+                  >
+                    {selectedEvent.extendedProps.selectedItems.map(
+                      (item, index) => (
+                        <a
+                          key={index}
+                          href={`#${item.name}`}
+                          onClick={() => setShowScrollButton(true)}
+                        >
+                          <Typography
+                            sx={{
+                              fontSize: "1.2rem",
+                              transition: "0.2s",
+                              padding: "0 10px",
+                              "@media (max-width:800px)": {
+                                fontSize: "1.5rem",
+                              },
+                              "&:hover ": {
+                                backgroundColor: "black",
+                                color: "white",
+                              },
+                            }}
+                          >
+                            {item.name}
+                          </Typography>
+                        </a>
+                      )
+                    )}
+                  </Box>
                   {/* Agrupe os itens por categoria */}
                   {Object.entries(
                     selectedEvent.extendedProps.selectedItems.reduce(
@@ -998,6 +1081,7 @@ const Calendar = ({ sets }) => {
                         {items.map((item, index) => (
                           <Box
                             key={index}
+                            id={item.name}
                             sx={{
                               marginBottom: 2,
                               width: "33.3%",
@@ -1096,6 +1180,27 @@ const Calendar = ({ sets }) => {
                 </>
               )}
             </Box>
+          )}
+          {showScrollButton && (
+            <IconButton
+              onClick={scrollToTop}
+              size="large"
+              sx={{
+                position: "sticky",
+                bottom: "0",
+                zIndex: "999",
+                left: "100%",
+                backgroundColor: "black",
+                color: "white",
+                "&:hover": {
+                  filter: "brightness(0.8)",
+                  backgroundColor: "#155799",
+                },
+              }}
+              aria-label="scroll to top"
+            >
+              <ArrowDropUpIcon />
+            </IconButton>
           )}
         </Box>
       </Modal>

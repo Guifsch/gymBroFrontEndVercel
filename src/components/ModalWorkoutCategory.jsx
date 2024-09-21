@@ -1,5 +1,4 @@
 import {
-  Container,
   Modal,
   IconButton,
   Typography,
@@ -126,12 +125,12 @@ export default function ModalWorkoutCategory({
     }
   };
 
-  const deleteCategory = async (e) => {
+  const deleteCategory = async (itemId) => {
     setLoading(true);
     const categoryItemsId = workoutsCategorys[0]._id;
     try {
       const response = await axiosInterceptor.delete(
-        `/api/category/categorys/${categoryItemsId}/categoryItems/${e}`,
+        `/api/category/${categoryItemsId}/${itemId}`,
         { withCredentials: true }
       );
       dispatch(snackBarMessageSuccess(response.data.message));
